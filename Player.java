@@ -14,4 +14,23 @@ public class Player {
         
         sc.close();
     }
+
+    void trainTroop(){
+        
+    }
+
+    void buildBuilding(){
+    }
+
+    void upgradeBuilding(){
+    }
+
+    void attackVillage(){
+    }
+
+    void surrenderVillage(){
+    }
+
+    void pass(){
+    }
 }

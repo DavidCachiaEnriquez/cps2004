@@ -10,6 +10,7 @@ public class GameManager {
     GameManager(){
         map.drawMap();
         Player player1 = new Player(map);
+        player1.trainTroop();
     }
 }
 
