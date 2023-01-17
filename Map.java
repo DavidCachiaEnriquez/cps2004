@@ -16,7 +16,7 @@ public class Map {
     }
 
     void drawMap(){
-        System.out.println("\n");
+        System.out.println();
         System.out.print("@  ");
         for(int k = 0; k < rows; k++){
             System.out.print(k + "  ");

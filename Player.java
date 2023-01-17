@@ -8,7 +8,7 @@ public class Player {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter player name: ");
-        playerName = sc.nextLine();
+        playerName = sc.next();
         
         homeVillage = new Village(playerName, map);
         
