@@ -1,13 +1,17 @@
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class Village {
     // - - - Attributes - - - //
     String ownerName;
     int health;
-
     int[] location;
 
     Resources store = new Resources();
+    Army homeArmy = new Army();
+
+    ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
+    ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
     // - - - Attributes - - - //
 
 
@@ -18,8 +22,6 @@ public class Village {
         int[] coord = locationSetter(map.rows);
         location = coord;
         map.addVillage(coord);
-
-        printDetails();
     }
 
     int[] locationSetter(int size){
@@ -39,7 +41,7 @@ public class Village {
 
         System.out.println("----------");
         System.out.println("Resources");
-        System.out.println("Bricks: \t" + store.bricks);
+        System.out.println("Bricks: \t" + store.wood);
         System.out.println("Rations:\t" + store.rations);
         System.out.println("Gold:   \t" + store.gold);
     }
