@@ -16,8 +16,15 @@ public class Map {
     }
 
     void drawMap(){
-        System.out.println();
+        System.out.println("\n");
+        System.out.print("@  ");
+        for(int k = 0; k < rows; k++){
+            System.out.print(k + "  ");
+        }
+
+        System.out.print("\n");
         for (int i = 0; i < rows; i++){
+            System.out.print(i + "  ");
             for(int j = 0; j < columns; j++){
                 System.out.print(grid[i][j] + "  ");
             }
@@ -28,6 +35,5 @@ public class Map {
 
     void addVillage(int[] coord){
         grid[coord[0]][coord[1]] = "#";
-        drawMap();
     }
 }
