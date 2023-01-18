@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Player {
     // - - - Attributes - - - //
     String playerName;
-    String villageMarker;
     Village homeVillage;
     // - - - Attributes - - - //
 
@@ -14,9 +13,9 @@ public class Player {
         playerName = sc.next();
 
         System.out.print("Choose maker [@, £, $, %, &, #]:");
-        villageMarker = sc.next();
+        homeVillage.villageMarker = sc.next();
 
-        homeVillage = new Village(playerName, villageMarker, map);
+        homeVillage = new Village(playerName, homeVillage.villageMarker, map);
     }
 
     void displayBuildings(){
@@ -137,14 +136,53 @@ public class Player {
     void displayTroops(){
         System.out.println("\nDisplay Troops");
         System.out.println("Number of troops: " + homeVillage.troops.size());
-        
+
+        int numS = 0;
+        int numC = 0;
+        int numG = 0;
+
         for(int i = 0; i<homeVillage.troops.size();i++){
-            System.out.print("  " + homeVillage.troops.get(i).name);
+            if(homeVillage.troops.get(i).name == "Soldier"){
+                numS += 1;
+            }else if(homeVillage.troops.get(i).name == "Cavalier"){
+                numC += 1;
+            }else if(homeVillage.troops.get(i).name == "Giant"){
+                numG += 1;
+            }
         }
+        System.out.println("Soldiers: " + numS);
+        System.out.println("Cavalier: " + numC);
+        System.out.println("Giant: " + numG);
     }
 
     void trainTroop(){
         System.out.println("Train Troops");
+        if(homeVillage.trainingBuildings.size() != 0){
+            for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
+                System.out.println(" " + (i+1) + ". " + homeVillage.trainingBuildings.get(i).name);
+            }
+            int choice = sc.nextInt()-1;
+
+            int cost = homeVillage.trainingBuildings.get(choice).troopCost;
+
+            if(cost <= homeVillage.store.rations){
+                homeVillage.store.rations -= cost;
+                
+                TrainingBuilding trainer = homeVillage.trainingBuildings.get(choice);
+                String troopName = trainer.troopName;
+                int troopHealth = trainer.troopHealth;
+                int troopPower = trainer.troopPower;
+                int troopCc = trainer.troopCc;
+                int troopSpeed = trainer.troopSpeed;
+
+                Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
+                homeVillage.troops.add(newTroop);
+            }else{
+                System.out.println("Not enough rations");
+            }
+        }else{
+            System.out.println("No training buildings built");
+        }
     }
 
     void attackVillage(){
