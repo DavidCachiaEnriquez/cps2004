@@ -1,7 +1,11 @@
+import java.util.Scanner;
+
 public class Map {
     int rows;
     int columns;
     String[][] grid;
+
+    Scanner sc = new Scanner(System.in);
 
     Map(int size){
         rows = size;
@@ -31,6 +35,9 @@ public class Map {
             System.out.println();
         }
         System.out.println();
+
+        System.out.print("\nC to continue: ");
+        sc.next();
     }
 
     void addVillage(int[] coord, String maker){

@@ -13,8 +13,4 @@ public class Troops {
         cc = tCc;
         speed = tSpeed;
     }
-
-
-    void addToArmy(){
-    }
 }
