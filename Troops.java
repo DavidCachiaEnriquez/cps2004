@@ -1,5 +1,5 @@
 public class Troops {
-    
+    String name;
 
     int cost;
     int health;

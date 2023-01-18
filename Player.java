@@ -71,7 +71,7 @@ public class Player {
                 }else{
                     System.out.println("Already Built");
                 }
-                
+
             }else if(choice == 2){
 
                 System.out.println("\nChoose type:");
@@ -137,9 +137,9 @@ public class Player {
     void displayTroops(){
         System.out.println("\nDisplay Troops");
         System.out.println("Number of troops: " + homeVillage.troops.size());
+        
         for(int i = 0; i<homeVillage.troops.size();i++){
-            System.out.print("  " + homeVillage.resourceBuildings.get(i).name);
-            System.out.println(" - lvl." + homeVillage.resourceBuildings.get(i).level);
+            System.out.print("  " + homeVillage.troops.get(i).name);
         }
     }
 
