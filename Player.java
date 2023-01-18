@@ -6,11 +6,14 @@ public class Player {
     String playerName;
     String villageMarker;
     Village homeVillage;
+
+    Map worldMap;
     // - - - Attributes - - - //
 
     Scanner sc = new Scanner(System.in);
 
     Player(Map map){
+        worldMap = map;
         System.out.print("Enter player name: ");
         playerName = sc.next();
 
@@ -18,8 +21,121 @@ public class Player {
         villageMarker = sc.next();
 
         homeVillage = new Village(playerName, villageMarker, map);
+        System.out.println();
     }
 
+    void demoMenu(){
+        int menu = 0;
+        while(menu != 3){
+            System.out.println("General Actions");
+            System.out.println(" 1. Village Details");
+            System.out.println(" 2. Display Map");
+            System.out.println(" 3. Pass Turn");
+
+            System.out.println("\nBuilding Actions");
+            System.out.println(" 4. Buildings Details");
+            System.out.println(" 5. Build Building");
+            System.out.println(" 6. Upgrade Building");
+
+            System.out.println("\nTroop Actions");
+            System.out.println(" 7. Troop Details");
+            System.out.println(" 8. Train Troops");
+
+            System.out.println("\nArmy Actions");
+            System.out.println(" 9. Display Army");
+            System.out.println(" 10 Create Army");
+
+            System.out.println("\nCombat Actions");
+            System.out.println(" 11. Surrender");
+
+
+            System.out.print("\nEnter menu option: ");
+            menu = sc.nextInt();
+            System.out.print("\033[H\033[2J");  
+
+            switch(menu){
+                case 1:
+                printDetails();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+
+                case 2:
+                worldMap.drawMap();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+                
+                case 3:
+                pass();
+                break;
+
+                case 4: 
+                System.out.println("\nBuilding Details");
+                displayBuildings();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+                
+                case 5:
+                System.out.print("\nBuild Building");
+                buildBuilding();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+                
+                case 6:
+                System.out.println("Upgrade Building");
+                upgradeBuilding();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+
+                case 7:
+                System.out.println("\nDisplay Troops");
+                displayTroops();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+                
+                case 8:
+                System.out.println("\nTrain Troops");
+                trainTroop();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+
+                case 9:
+                System.out.println("\nDisplay Army");
+                displayArmy();
+
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+
+                case 10:
+                System.out.println("\nCreate Army");
+                createArmy();
+                
+                System.out.print("\nC to continue: ");
+                sc.next();
+                break;
+                
+                case 11:
+                homeVillage.health = 0;
+                break;
+            }
+            System.out.print("\033[H\033[2J");  
+        }
+
+    }
 
     void printDetails(){
         System.out.println("\n- - Village Details - -");
@@ -40,16 +156,24 @@ public class Player {
 
 
     void displayBuildings(){
-        System.out.println(" Troop Buildings: " + homeVillage.trainingBuildings.size());
-        for(int i = 0; i<homeVillage.trainingBuildings.size();i++){
-            System.out.print("  " + homeVillage.trainingBuildings.get(i).name);
-            System.out.println(" - lvl." + homeVillage.trainingBuildings.get(i).level);
+        if(homeVillage.trainingBuildings.size() != 0){
+            System.out.println(" Troop Buildings: ");
+            for(int i = 0; i<homeVillage.trainingBuildings.size();i++){
+                System.out.print("  " + homeVillage.trainingBuildings.get(i).name);
+                System.out.println(" - lvl." + homeVillage.trainingBuildings.get(i).level);
+            }
+        }else{
+            System.out.println(" No troop buildings yet...");
         }
 
-        System.out.println(" Resources Buildings: " + homeVillage.resourceBuildings.size());
-        for(int i = 0; i<homeVillage.resourceBuildings.size();i++){
-            System.out.print("  " + homeVillage.resourceBuildings.get(i).name);
-            System.out.println(" - lvl." + homeVillage.resourceBuildings.get(i).level);
+        if(homeVillage.resourceBuildings.size() != 0){
+            System.out.println("\n Resources Buildings");
+            for(int i = 0; i<homeVillage.resourceBuildings.size();i++){
+                System.out.print("  " + homeVillage.resourceBuildings.get(i).name);
+                System.out.println(" - lvl." + homeVillage.resourceBuildings.get(i).level);
+            }
+        }else{
+            System.out.println("\n No resource buildings yet...");
         }
     }
 
@@ -59,7 +183,9 @@ public class Player {
         System.out.println(" 2. Resource Gathering");
         System.out.println(" 3. Cancel");
 
+        System.out.print("\nMenu selection: ");
         int choice = sc.nextInt();
+
         if(homeVillage.store.wood > 0){
             if(choice == 1){
                 System.out.println("\nChoose type:");
@@ -68,35 +194,39 @@ public class Player {
                 System.out.println(" 3. Gym (Giant)");
                 System.out.println(" 4. Cancel");
                 
+                System.out.print("\nMenu selection: ");
                 int type = sc.nextInt();
+                
+                if(type != 4){
+                    boolean flag = false;
+                    if(type == 1){
+                        for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
+                            if(homeVillage.trainingBuildings.get(i).troopName == "Soldier"){
+                                flag = true;
+                            }
+                        }
+                    }else if(type == 2){
+                        for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
+                            if(homeVillage.trainingBuildings.get(i).troopName == "Cavalier"){
+                                flag = true;
+                            }
+                        }
+                    }else if(type == 3){
+                        for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
+                            if(homeVillage.trainingBuildings.get(i).troopName == "Giant"){
+                                flag = true;
+                            }
+                        }
+                    }
 
-                boolean flag = false;
-                if(type == 1){
-                    for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
-                        if(homeVillage.trainingBuildings.get(i).troopName == "Soldier"){
-                            flag = true;
-                        }
-                    }
-                }else if(type == 2){
-                    for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
-                        if(homeVillage.trainingBuildings.get(i).troopName == "Cavalier"){
-                            flag = true;
-                        }
-                    }
-                }else if(type == 3){
-                    for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
-                        if(homeVillage.trainingBuildings.get(i).troopName == "Giant"){
-                            flag = true;
-                        }
-                    }
-                }
-
-                if(flag == false){
-                    TrainingBuilding newBuild = new TrainingBuilding(type);
-                    homeVillage.store.wood-=1;
-                    homeVillage.trainingBuildings.add(newBuild);
-                }else{
+                    if(flag == false){
+                        TrainingBuilding newBuild = new TrainingBuilding(type);
+                        homeVillage.store.wood-=1;
+                        homeVillage.trainingBuildings.add(newBuild);
+                        System.out.println("Built!");
+                    }else{
                     System.out.println("Already Built");
+                }
                 }
 
             }else if(choice == 2){
@@ -106,39 +236,43 @@ public class Player {
                 System.out.println(" 3. Mines (Gold)");
                 System.out.println(" 4. Cancel");
 
+                System.out.print("\nMenu selection: ");
                 int type = sc.nextInt();
 
-                boolean flag = false;
-                if(type == 1){
-                    for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
-                        if(homeVillage.resourceBuildings.get(i).name == "Lumberyard"){
-                            flag = true;
+                if(type != 4){
+                    boolean flag = false;
+                    if(type == 1){
+                        for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
+                            if(homeVillage.resourceBuildings.get(i).name == "Lumberyard"){
+                                flag = true;
+                            }
+                        }
+                    }else if(type == 2){
+                        for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
+                            if(homeVillage.resourceBuildings.get(i).name == "Mess Hall"){
+                                flag = true;
+                            }
+                        }
+                    }else if(type == 3){
+                        for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
+                            if(homeVillage.resourceBuildings.get(i).name == "Mines"){
+                                flag = true;
+                            }
                         }
                     }
-                }else if(type == 2){
-                    for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
-                        if(homeVillage.resourceBuildings.get(i).name == "Mess Hall"){
-                            flag = true;
-                        }
-                    }
-                }else if(type == 3){
-                    for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
-                        if(homeVillage.resourceBuildings.get(i).name == "Mines"){
-                            flag = true;
-                        }
-                    }
-                }
 
-                if(flag == false){
-                    ResourceBuilding newBuild = new ResourceBuilding(type);
-                    homeVillage.store.wood-=1;
-                    homeVillage.resourceBuildings.add(newBuild);
-                }else{
-                    System.out.println("Already Built");
+                    if(flag == false){
+                        ResourceBuilding newBuild = new ResourceBuilding(type);
+                        homeVillage.store.wood-=1;
+                        homeVillage.resourceBuildings.add(newBuild);
+                        System.out.println("Built!");
+                    }else{
+                        System.out.println("Already Built");
+                    }
                 }
             }
         }else{
-            System.out.println("\nNot enough wood");
+            System.out.println("\nNot enough wood...");
         }
     }    
 
@@ -147,6 +281,8 @@ public class Player {
         System.out.println(" 1. Troop Buildings");
         System.out.println(" 2. Resource Buildings");
         System.out.println(" 3. Cancel");
+
+        System.out.print("\nMenu selection: ");
         int choice = sc.nextInt();
 
         int building;
@@ -160,15 +296,19 @@ public class Player {
                     System.out.print(" - lvl." + homeVillage.trainingBuildings.get(i).level);
                     System.out.println(" - cost in gold: " + homeVillage.trainingBuildings.get(i).level);
                 }
-                System.out.print("Choose building to upgrade: ");
+                System.out.print("\nChoose building to upgrade: ");
                 building = sc.nextInt();
 
                 upgradeCost = homeVillage.trainingBuildings.get(building-1).level;
-                
-                homeVillage.store.gold -= upgradeCost;
-                homeVillage.trainingBuildings.get(building-1).level += 1;
+                if(homeVillage.store.gold >= upgradeCost){
+                    homeVillage.store.gold -= upgradeCost;
+                    homeVillage.trainingBuildings.get(building-1).level += 1;
+                    System.out.println("Upgraded!");
+                }else{
+                    System.out.println("Not enough gold...");
+                }
             }else{
-                System.out.println("No troop buildings exist");
+                System.out.println(" No troop buildings yet...");
             }
             break;
 
@@ -184,11 +324,16 @@ public class Player {
                 building = sc.nextInt();
 
                 upgradeCost = homeVillage.resourceBuildings.get(building-1).level;
-                
-                homeVillage.store.gold -= upgradeCost;
-                homeVillage.resourceBuildings.get(building-1).level += 1;
+                if(homeVillage.store.gold >= upgradeCost){
+
+                    homeVillage.store.gold -= upgradeCost;
+                    homeVillage.resourceBuildings.get(building-1).level += 1;
+                    System.out.println("Upgraded!");
+                }else{
+                    System.out.println("Not enough gold...");
+                }
             }else{
-                System.out.println("No resource buildings exist");
+                System.out.println(" No resource buildings yet...");
             }
             break;
         }
@@ -197,24 +342,25 @@ public class Player {
 
     void displayTroops(){
         ArrayList<Troops> villageTroops = homeVillage.troops;
-
-        int numOfS = 0;
-        int numOfC = 0;
-        int numOfG = 0;
-        
-        for(int i = 0; i < villageTroops.size(); i++){
-            if(villageTroops.get(i).name == "Soldier"){
-                numOfS++;
-            }else if(villageTroops.get(i).name == "Cavalier"){
-                numOfC++;
-            }else if(villageTroops.get(i).name == "Giant"){
-                numOfG++;
+        if(villageTroops.size() != 0){
+            int numOfS = 0; int numOfC = 0; int numOfG = 0;
+            
+            for(int i = 0; i < villageTroops.size(); i++){
+                if(villageTroops.get(i).name == "Soldier"){
+                    numOfS++;
+                }else if(villageTroops.get(i).name == "Cavalier"){
+                    numOfC++;
+                }else if(villageTroops.get(i).name == "Giant"){
+                    numOfG++;
+                }
             }
-        }
 
-        System.out.print((numOfS != 0) ? "Soldiers: " + numOfS : "");
-        System.out.print((numOfC != 0) ? "\nCavaliers: " + numOfC : "");
-        System.out.println((numOfG != 0) ? "\nGiants: " + numOfG:"");
+            System.out.print((numOfS != 0) ? "Soldiers: " + numOfS : "");
+            System.out.print((numOfC != 0) ? "\nCavaliers: " + numOfC : "");
+            System.out.println((numOfG != 0) ? "\nGiants: " + numOfG:"");
+        }else{
+            System.out.println("No troops trained yet...");
+        }
     }
 
     void trainTroop(){
@@ -222,6 +368,8 @@ public class Player {
             for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
                 System.out.println(" " + (i+1) + ". " + homeVillage.trainingBuildings.get(i).name);
             }
+
+            System.out.print("\nMenu selection: ");
             int choice = sc.nextInt()-1;
 
             int cost = homeVillage.trainingBuildings.get(choice).troopCost;
@@ -240,35 +388,39 @@ public class Player {
                     homeVillage.troops.add(newTroop);
                 }
             }else{
-                System.out.println("Not enough rations");
+                System.out.println("Not enough rations...");
             }
         }else{
-            System.out.println("No training buildings built");
+            System.out.println("No training buildings built yet...");
         }
     }
 
 
     void displayArmy(){
-        System.out.println("Number of armies: " + homeVillage.armies.size());
-        for(int i = 0; i < homeVillage.armies.size();i++){
-            System.out.println("Army " + (i+1));
-            ArrayList<Troops> armyTroops = homeVillage.armies.get(i).armyMembers;
-
-            int numOfS = 0; int numOfC = 0; int numOfG = 0;
-
-            for(int j = 0; j < armyTroops.size(); j++){
-                if(armyTroops.get(j).name == "Soldier"){
-                    numOfS++;
-                }else if(armyTroops.get(j).name == "Cavalier"){
-                    numOfC++;
-                }else if(armyTroops.get(j).name == "Giant"){
-                    numOfG++;
+        if(homeVillage.armies.size() != 0){
+            System.out.println("Number of armies: " + homeVillage.armies.size());
+            for(int i = 0; i < homeVillage.armies.size();i++){
+                
+                System.out.println("Army " + (i+1));
+                ArrayList<Troops> armyTroops = homeVillage.armies.get(i).armyMembers;
+                int numOfS = 0; int numOfC = 0; int numOfG = 0;
+                
+                for(int j = 0; j < armyTroops.size(); j++){
+                    if(armyTroops.get(j).name == "Soldier"){
+                        numOfS++;
+                    }else if(armyTroops.get(j).name == "Cavalier"){
+                        numOfC++;
+                    }else if(armyTroops.get(j).name == "Giant"){
+                        numOfG++;
+                    }
                 }
+            
+                System.out.print((numOfS != 0) ? " Soldiers: " + numOfS : "");
+                System.out.print((numOfC != 0) ? "\n Cavaliers: " + numOfC : "");
+                System.out.println((numOfG != 0) ? "\n Giants: " + numOfG:"");
             }
-    
-            System.out.print((numOfS != 0) ? " Soldiers: " + numOfS : "");
-            System.out.print((numOfC != 0) ? "\n Cavaliers: " + numOfC : "");
-            System.out.println((numOfG != 0) ? "\n Giants: " + numOfG:"");
+        }else{
+            System.out.println("No armies formed yet...");
         }
     }
 
@@ -278,102 +430,103 @@ public class Player {
         System.out.println("\nPrepared Troops:");
         ArrayList<Troops> villageTroops = homeVillage.troops;
         
-        int numOfS = 0; int numOfC = 0; int numOfG = 0;
-        
-        for(int i = 0; i < villageTroops.size(); i++){
-            if(villageTroops.get(i).name == "Soldier"){
-                numOfS++;
-            }else if(villageTroops.get(i).name == "Cavalier"){
-                numOfC++;
-            }else if(villageTroops.get(i).name == "Giant"){
-                numOfG++;
-            }
-        }
+        if(villageTroops.size() != 0){
 
-        System.out.print((numOfS != 0) ? " Soldiers: " + numOfS : "");
-        System.out.print((numOfC != 0) ? "\n Cavaliers: " + numOfC : "");
-        System.out.println((numOfG != 0) ? "\n Giants: " + numOfG:"");
-
-        System.out.println("\nAdding Troops to Army");
-        
-        if(numOfS != 0){
-            System.out.println("Number of Soldiers: ");
-            int input = sc.nextInt();
-            while(input > numOfS | input < 0){
-                if(input > numOfS | input < 0){
-                    System.out.println("Invalid number of troops");
-                    input = sc.nextInt();
-                }
-            }
-            
-            System.out.println("Output: " + input);
-
+            int numOfS = 0; int numOfC = 0; int numOfG = 0;
             for(int i = 0; i < villageTroops.size(); i++){
                 if(villageTroops.get(i).name == "Soldier"){
-                    army.armyMembers.add(villageTroops.get(i));
-                    villageTroops.remove(i);
-                    input--;
-                }
-                if(input < 0){
-                    break;
-                }
-            }
-        }
-
-        if(numOfC != 0){
-            System.out.println("Number of Cavaliers: ");
-            int input = sc.nextInt();
-            while(input > numOfC | input < 0){
-                if(input > numOfC | input < 0){
-                    System.out.println("Invalid number of troops");
-                    input = sc.nextInt();
+                    numOfS++;
+                }else if(villageTroops.get(i).name == "Cavalier"){
+                    numOfC++;
+                }else if(villageTroops.get(i).name == "Giant"){
+                    numOfG++;
                 }
             }
 
-            for(int i = 0; i < villageTroops.size(); i++){
-                if(villageTroops.get(i).name == "Cavalier"){
-                    army.armyMembers.add(villageTroops.get(i));
-                    villageTroops.remove(i);
-                    input--;
+            System.out.print((numOfS != 0) ? " Soldiers: " + numOfS : "");
+            System.out.print((numOfC != 0) ? "\n Cavaliers: " + numOfC : "");
+            System.out.println((numOfG != 0) ? "\n Giants: " + numOfG:"");
+
+            System.out.println("\nAdding Troops to Army");
+            
+            if(numOfS != 0){
+                System.out.println("Number of Soldiers: ");
+                int input = sc.nextInt();
+                while(input > numOfS | input < 0){
+                    if(input > numOfS | input < 0){
+                        System.out.println("Invalid number of troops");
+                        input = sc.nextInt();
+                    }
                 }
-                if(input < 0){
-                    break;
+                
+                System.out.println("Output: " + input);
+
+                for(int i = 0; i < villageTroops.size(); i++){
+                    if(villageTroops.get(i).name == "Soldier"){
+                        army.armyMembers.add(villageTroops.get(i));
+                        villageTroops.remove(i);
+                        input--;
+                    }
+                    if(input < 0){
+                        break;
+                    }
                 }
             }
-        }
 
-        if(numOfG != 0){
-            System.out.println("Number of Giants: ");
-            int input = sc.nextInt();
-            while(input > numOfG | input < 0){
-                if(input > numOfG | input < 0){
-                    System.out.println("Invalid number of troops");
-                    input = sc.nextInt();
+            if(numOfC != 0){
+                System.out.println("Number of Cavaliers: ");
+                int input = sc.nextInt();
+                while(input > numOfC | input < 0){
+                    if(input > numOfC | input < 0){
+                        System.out.println("Invalid number of troops");
+                        input = sc.nextInt();
+                    }
+                }
+
+                for(int i = 0; i < villageTroops.size(); i++){
+                    if(villageTroops.get(i).name == "Cavalier"){
+                        army.armyMembers.add(villageTroops.get(i));
+                        villageTroops.remove(i);
+                        input--;
+                    }
+                    if(input < 0){
+                        break;
+                    }
                 }
             }
 
-            for(int i = 0; i < villageTroops.size(); i++){
-                if(villageTroops.get(i).name == "Giant"){
-                    army.armyMembers.add(villageTroops.get(i));
-                    villageTroops.remove(i);
-                    input--;
+            if(numOfG != 0){
+                System.out.println("Number of Giants: ");
+                int input = sc.nextInt();
+                while(input > numOfG | input < 0){
+                    if(input > numOfG | input < 0){
+                        System.out.println("Invalid number of troops");
+                        input = sc.nextInt();
+                    }
                 }
-                if(input < 0){
-                    break;
+
+                for(int i = 0; i < villageTroops.size(); i++){
+                    if(villageTroops.get(i).name == "Giant"){
+                        army.armyMembers.add(villageTroops.get(i));
+                        villageTroops.remove(i);
+                        input--;
+                    }
+                    if(input < 0){
+                        break;
+                    }
                 }
             }
-        }
 
-        if(army.armyMembers.size() > 0){
-            homeVillage.armies.add(army);
+            if(army.armyMembers.size() > 0){
+                homeVillage.armies.add(army);
+            }
+        }else{
+            System.out.println("No troops trained yet...");
         }
     }
 
 
     void attackVillage(){
-    }
-
-    void surrenderVillage(){
     }
 
     void pass(){

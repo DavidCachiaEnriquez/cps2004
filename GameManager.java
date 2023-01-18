@@ -11,119 +11,49 @@ public class GameManager {
     Scanner sc = new Scanner(System.in);
 
     GameManager(){
-        Player player1 = new Player(map);
-        players.add(player1);
-        
-        System.out.print("\033[H\033[2J");  
-        demoMenu(player1);
-    }
 
-    void demoMenu(Player player){
-        int menu = 0;
-        while(menu != 4){
-            System.out.println("General Actions");
-            System.out.println(" 1. Village Details");
-            System.out.println(" 2. Display Map");
-            System.out.println(" 3. New Turn");
-            System.out.println(" 4. Exit");
+        System.out.print("Enter number of players: ");
+        int playerNum = sc.nextInt();
+        System.out.println();
 
-
-            System.out.println("\nBuilding Actions");
-            System.out.println(" 5. Buildings Details");
-            System.out.println(" 6. Build Building");
-            System.out.println(" 7. Upgrade Building");
-
-            System.out.println("\nTroop Actions");
-            System.out.println(" 8. Troop Details");
-            System.out.println(" 9. Train Troops");
-
-            System.out.println("\nArmy Actions");
-            System.out.println(" 10. Display Army");
-            System.out.println(" 11. Create Army");
-
-
-            System.out.print("\nEnter menu option: ");
-            menu = sc.nextInt();
-            System.out.print("\033[H\033[2J");  
-
-            switch(menu){
-                case 1:
-                player.printDetails();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-
-                case 2:
-                map.drawMap();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-                
-                case 3:
-                player.pass();
-                break;
-
-                case 5: 
-                System.out.println("\nBuilding Details");
-                player.displayBuildings();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-                
-                case 6:
-                System.out.print("\nBuild Building");
-                player.buildBuilding();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-                
-                case 7:
-                System.out.println("Upgrade Building");
-                player.upgradeBuilding();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-
-                case 8:
-                System.out.println("\nDisplay Troops");
-                player.displayTroops();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-                
-                case 9:
-                System.out.println("\nTrain Troops");
-                player.trainTroop();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-
-                case 10:
-                System.out.println("\nDisplay Army");
-                player.displayArmy();
-
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-
-                case 11:
-                System.out.println("\nCreate Army");
-                player.createArmy();
-                
-                System.out.println("\nC to continue");
-                sc.next();
-                break;
-            }
-            System.out.print("\033[H\033[2J");  
+        for(int i = 0; i < playerNum; i++){
+            playerAdder(map, players);
         }
 
+        boolean winFlag = true;
+        while(winFlag != false){
+            turnController(players);
+            deathCheck(players);
+            winFlag = winCheck(players);
+        }
+
+    }
+
+    void playerAdder(Map map, ArrayList<Player> players){
+        Player playerTemp = new Player(map);
+        players.add(playerTemp);
+    }
+
+    void turnController(ArrayList<Player> players){
+        for(int i = 0; i < players.size(); i++){
+            players.get(i).demoMenu();
+        }       
+    }
+
+    void deathCheck(ArrayList<Player> players){
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).homeVillage.health == 0){
+                players.remove(i);
+            }
+        }
+    }
+
+    boolean winCheck(ArrayList<Player> players){
+        if(players.size() == 1){
+            System.out.println("Congrats " + players.get(0).playerName + "!");
+            return(false);
+        }
+        return true;
     }
 }
 
