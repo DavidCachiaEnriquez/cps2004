@@ -26,7 +26,7 @@ public class Player {
 
     void demoMenu(){
         int menu = 0;
-        while(menu != 3){
+        while(menu != 3 && menu != 11){
             System.out.println("General Actions");
             System.out.println(" 1. Village Details");
             System.out.println(" 2. Display Map");
@@ -130,6 +130,7 @@ public class Player {
                 
                 case 11:
                 homeVillage.health = 0;
+                pass();
                 break;
             }
             System.out.print("\033[H\033[2J");  
@@ -454,12 +455,11 @@ public class Player {
                 int input = sc.nextInt();
                 while(input > numOfS | input < 0){
                     if(input > numOfS | input < 0){
-                        System.out.println("Invalid number of troops");
+                        System.out.print("Invalid number of troops");
                         input = sc.nextInt();
                     }
                 }
                 
-                System.out.println("Output: " + input);
 
                 for(int i = 0; i < villageTroops.size(); i++){
                     if(villageTroops.get(i).name == "Soldier"){
@@ -526,11 +526,12 @@ public class Player {
     }
 
 
+    
+
     void attackVillage(){
     }
 
     void pass(){
-        System.out.println("New Turn");
         for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
             Resources villageStore = homeVillage.store;
             ResourceBuilding building = homeVillage.resourceBuildings.get(i);
