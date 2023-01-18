@@ -26,4 +26,7 @@ public class TrainingBuilding {
             troopCc = 7; troopSpeed = 3;
         }
     }
+
+
+    
 }

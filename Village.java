@@ -48,9 +48,7 @@ public class Village {
         System.out.println(" Location:         (" + location[0] + ", " + location[1] + ")");
 
         System.out.println("\n Resources");
-        System.out.println(" Wood:             " + store.wood);
-        System.out.println(" Rations:          " + store.rations);
-        System.out.println(" Gold:             " + store.gold);
+        store.printContent();
 
         System.out.println("\n Troops");
         System.out.println(" Stationed Troops: " + troops.size());
@@ -63,14 +61,8 @@ public class Village {
     void pass(){
         for(int i = 0; i < resourceBuildings.size(); i++){
             ResourceBuilding building = resourceBuildings.get(i);
-
-            int wood = building.resourceType.wood * building.level;
-            int rations = building.resourceType.rations * building.level;
-            int gold = building.resourceType.gold * building.level;
-
-            store.wood += wood;
-            store.rations += rations;
-            store.gold += gold;
+            int[] newResources = building.generateResources();
+            store.updateStoreContent(newResources[0], newResources[1], newResources[2]);
         }
     }
 

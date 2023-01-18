@@ -22,5 +22,22 @@ public class ResourceBuilding {
             break;
         }
     }
+
+    int generateWood(){
+        return(resourceType.wood * level);
+    }
+
+    int generateRations(){
+        return(resourceType.rations * level);
+    }
+
+    int generateGold(){
+        return(resourceType.gold * level);
+    }
+
+    int[] generateResources(){
+        int[] temp = {generateWood(), generateRations(), generateGold()};
+        return(temp);
+    }
     
 }
