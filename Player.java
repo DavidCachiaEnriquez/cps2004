@@ -113,6 +113,10 @@ public class Player {
         }
     }
 
+    void displayTroops(){
+        System.out.println("Display Troops");
+    }
+
     void trainTroop(){
         System.out.println("Train Troops");
     }

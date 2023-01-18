@@ -1,6 +1,5 @@
 public class Resources {
     int wood; int rations; int gold;
-    int level;
 
     Resources(){
         wood = 5;
@@ -10,11 +9,11 @@ public class Resources {
 
     Resources(int type){
         if(type == 1){
-            wood = 1; level = 1;
+            wood = 1;
         }else if(type == 2){
-            rations = 1; level = 1;
+            rations = 1;
         }else if(type == 3){
-            gold = 1; level = 1;
+            gold = 1;
         }
     }
 }

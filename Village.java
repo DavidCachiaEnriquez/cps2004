@@ -8,7 +8,9 @@ public class Village {
     int[] location;
 
     Resources store = new Resources();
-    Army homeArmy = new Army();
+
+    ArrayList<Troops> troops = new ArrayList<Troops>();
+    ArrayList<Army> armiess = new ArrayList<Army>();
 
     ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
     ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
@@ -41,7 +43,7 @@ public class Village {
 
         System.out.println("    ----------");
         System.out.println(" Resources");
-        System.out.println(" Bricks: \t" + store.wood);
+        System.out.println(" Wood: \t" + store.wood);
         System.out.println(" Rations:\t" + store.rations);
         System.out.println(" Gold:   \t" + store.gold);
     }
