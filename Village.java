@@ -10,7 +10,7 @@ public class Village {
     Resources store = new Resources();
 
     ArrayList<Troops> troops = new ArrayList<Troops>();
-    ArrayList<Army> armiess = new ArrayList<Army>();
+    ArrayList<Army> armies = new ArrayList<Army>();
 
     ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
     ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();

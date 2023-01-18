@@ -1,4 +1,6 @@
 public class Troops {
+    
+
     int cost;
     int health;
     int power;

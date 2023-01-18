@@ -48,9 +48,30 @@ public class Player {
                 System.out.println("3. Gym (Giant)");
                 
                 int type = sc.nextInt();
-                TrainingBuilding newBuild = new TrainingBuilding(type);
-                homeVillage.store.wood-=1;
-                homeVillage.trainingBuildings.add(newBuild);
+                String name = "";
+                if(type == 1){
+                    name = "Barracks";
+                }else if(type == 2){
+                    name = "Stables";
+                }else if(type == 3){
+                    name = "Gym";
+                }
+
+                boolean flag = true;
+                for(int i = 0; i<homeVillage.trainingBuildings.size();i++){
+                    if(homeVillage.trainingBuildings.get(i).name == name){
+                        flag = false;
+                    }
+                }
+
+                if(flag == true){
+                    TrainingBuilding newBuild = new TrainingBuilding(name);
+                    homeVillage.store.wood-=1;
+                    homeVillage.trainingBuildings.add(newBuild);
+                }else{
+                    System.out.println("Already Built");
+                }
+                
             }else if(choice == 2){
 
                 System.out.println("\nChoose type:");
@@ -114,7 +135,12 @@ public class Player {
     }
 
     void displayTroops(){
-        System.out.println("Display Troops");
+        System.out.println("\nDisplay Troops");
+        System.out.println("Number of troops: " + homeVillage.troops.size());
+        for(int i = 0; i<homeVillage.troops.size();i++){
+            System.out.print("  " + homeVillage.resourceBuildings.get(i).name);
+            System.out.println(" - lvl." + homeVillage.resourceBuildings.get(i).level);
+        }
     }
 
     void trainTroop(){
