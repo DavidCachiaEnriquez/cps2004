@@ -34,45 +34,30 @@ public class GameManager {
 
             switch(menu){
                 case 1:
-                    map.drawMap();
-                    break;
+                map.drawMap();
+                break;
                 case 2: 
-                    player.buildBuilding();
-                    break;
+                player.buildBuilding();
+                break;
                 case 3: 
-                    System.out.println("\n1. Troops: " + player.homeVillage.trainingBuildings.size());
-                    System.out.println("2. Resources: " + player.homeVillage.resourceBuildings.size());
-                    
-                    int choice = sc.nextInt();
-                    System.out.println();
+                System.out.println("\nTroop Buildings: " + player.homeVillage.trainingBuildings.size());
+                for(int i = 0; i<player.homeVillage.trainingBuildings.size();i++){
+                    System.out.print(" " + player.homeVillage.trainingBuildings.get(i).name);
+                    System.out.println(": " + player.homeVillage.trainingBuildings.get(i).level);
+                }
 
-                    if(choice == 1){
-                        for(int i = 0; i<player.homeVillage.trainingBuildings.size();i++){
-                            int cost = player.homeVillage.trainingBuildings.get(i).troopCost;
-                            if(cost == 1){
-                                System.out.println("Barracks: " + player.homeVillage.trainingBuildings.get(i).level);
-                            }else if(cost == 2){
-                                System.out.println("Stable: " + player.homeVillage.trainingBuildings.get(i).level);
-                            }else if(cost == 5){
-                                System.out.println("Gym: " + player.homeVillage.trainingBuildings.get(i).level);
-                            }
-                        }
-                    }else if(choice == 2){
-                        for(int i = 0; i<player.homeVillage.resourceBuildings.size();i++){
-                            if(player.homeVillage.resourceBuildings.get(i).resourceType.wood == 1){
-                                System.out.println("Lumberyard: " + player.homeVillage.resourceBuildings.get(i).resourceType.level);
-                            }else if(player.homeVillage.resourceBuildings.get(i).resourceType.rations == 1){
-                                System.out.println("Mess hall: " + player.homeVillage.resourceBuildings.get(i).resourceType.level);
-                            }else if(player.homeVillage.resourceBuildings.get(i).resourceType.gold == 1){
-                                System.out.println("Mines: " + player.homeVillage.resourceBuildings.get(i).resourceType.level);
-                            }
-                        }
-                    }
-
-                    break;
+                System.out.println("\nResources Buildings: " + player.homeVillage.resourceBuildings.size());
+                for(int i = 0; i<player.homeVillage.resourceBuildings.size();i++){
+                    System.out.print(" " + player.homeVillage.resourceBuildings.get(i).name);
+                    System.out.println(": " + player.homeVillage.resourceBuildings.get(i).level);
+                }
+                break;
                 case 4: 
-                    player.homeVillage.printDetails();
-                    break;
+                player.homeVillage.printDetails();
+                break;
+                case 5:
+                player.upgradeBuilding();
+                break;
             }
         }
     }

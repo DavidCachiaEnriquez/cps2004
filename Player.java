@@ -16,6 +16,7 @@ public class Player {
     }
 
     void trainTroop(){
+        System.out.println("Train Troops");
     }
 
     void buildBuilding(){
@@ -53,6 +54,7 @@ public class Player {
     }    
 
     void upgradeBuilding(){
+        System.out.println("Upgrade Building");
     }
 
     void attackVillage(){

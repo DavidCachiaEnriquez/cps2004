@@ -3,11 +3,10 @@ public class Resources {
     int level;
 
     Resources(){
-        wood = 3;
-        rations = 3;
-        gold = 3;
+        wood = 5;
+        rations = 5;
+        gold = 5;
     }
-
 
     Resources(int type){
         if(type == 1){

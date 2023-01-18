@@ -1,14 +1,28 @@
 public class ResourceBuilding {
-    
+    String name;
+    int level;
     Resources resourceType;
     
     ResourceBuilding(int type){
-        if(type == 1){
+        switch(type){
+            case 1:
+            name = "Lumberyard";
             resourceType = new Resources(type);
-        }else if(type == 2){
+            level = 1;
+            break;
+
+            case 2:
+            name = "Mess Hall";
             resourceType = new Resources(type);
-        }else if(type == 3){
+            level = 1;
+            break;
+
+            case 3:
+            name = "Mines";
             resourceType = new Resources(type);
+            level = 1;
+            break;
         }
     }
+    
 }
