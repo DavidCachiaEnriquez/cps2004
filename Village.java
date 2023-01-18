@@ -15,13 +15,13 @@ public class Village {
     // - - - Attributes - - - //
 
 
-    Village(String name, Map map){
+    Village(String name, String marker, Map map){
         ownerName = name;
         health = 10;
 
         int[] coord = locationSetter(map.rows);
         location = coord;
-        map.addVillage(coord);
+        map.addVillage(coord, marker);
     }
 
     int[] locationSetter(int size){
@@ -35,15 +35,15 @@ public class Village {
 
     void printDetails(){
         System.out.println("\nVillage Details");
-        System.out.println("Village owner:\t" + ownerName);
-        System.out.println("Village health:\t" + health);
-        System.out.println("Location:\t(" + location[0] + ", " + location[1] + ")");
+        System.out.println(" Village owner:\t" + ownerName);
+        System.out.println(" Village health:\t" + health);
+        System.out.println(" Location:\t(" + location[0] + ", " + location[1] + ")");
 
-        System.out.println("----------");
-        System.out.println("Resources");
-        System.out.println("Bricks: \t" + store.wood);
-        System.out.println("Rations:\t" + store.rations);
-        System.out.println("Gold:   \t" + store.gold);
+        System.out.println("    ----------");
+        System.out.println(" Resources");
+        System.out.println(" Bricks: \t" + store.wood);
+        System.out.println(" Rations:\t" + store.rations);
+        System.out.println(" Gold:   \t" + store.gold);
     }
 
 }

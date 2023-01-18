@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Player {
     // - - - Attributes - - - //
     String playerName;
+    String villageMarker;
     Village homeVillage;
     // - - - Attributes - - - //
 
@@ -12,11 +13,25 @@ public class Player {
         System.out.print("Enter player name: ");
         playerName = sc.next();
 
-        homeVillage = new Village(playerName, map);
+        System.out.print("Choose maker [@, £, $, %, &, #]:");
+        villageMarker = sc.next();
+
+        homeVillage = new Village(playerName, villageMarker, map);
     }
 
-    void trainTroop(){
-        System.out.println("Train Troops");
+    void displayBuildings(){
+        System.out.println("\nBuilding Details");
+        System.out.println(" Troop Buildings: " + homeVillage.trainingBuildings.size());
+        for(int i = 0; i<homeVillage.trainingBuildings.size();i++){
+            System.out.print("  " + homeVillage.trainingBuildings.get(i).name);
+            System.out.println(" - lvl." + homeVillage.trainingBuildings.get(i).level);
+        }
+
+        System.out.println(" Resources Buildings: " + homeVillage.resourceBuildings.size());
+        for(int i = 0; i<homeVillage.resourceBuildings.size();i++){
+            System.out.print("  " + homeVillage.resourceBuildings.get(i).name);
+            System.out.println(" - lvl." + homeVillage.resourceBuildings.get(i).level);
+        }
     }
 
     void buildBuilding(){
@@ -54,7 +69,52 @@ public class Player {
     }    
 
     void upgradeBuilding(){
-        System.out.println("Upgrade Building");
+        System.out.println("\nUpgrade Building");
+        System.out.println("Choose building type:");
+        System.out.println(" 1. Troop Buildings");
+        System.out.println(" 2. Resource Buildings");
+        System.out.println(" 3. Cancel");
+        int choice = sc.nextInt();
+
+        int building;
+        int upgradeCost;
+        switch(choice){
+            case 1:
+            System.out.println("\nTroop Buildings");
+            for(int i = 0; i<homeVillage.trainingBuildings.size();i++){
+                System.out.print(" " + (i+1) + ". "  + homeVillage.trainingBuildings.get(i).name);
+                System.out.print(" - lvl." + homeVillage.trainingBuildings.get(i).level);
+                System.out.println(" - cost in gold: " + homeVillage.trainingBuildings.get(i).level);
+            }
+            System.out.print("Choose building to upgrade: ");
+            building = sc.nextInt();
+
+            upgradeCost = homeVillage.trainingBuildings.get(building-1).level;
+            
+            homeVillage.store.gold -= upgradeCost;
+            homeVillage.trainingBuildings.get(building-1).level += 1;
+            break;
+
+            case 2:
+            System.out.println("\nResource Buildings");
+            for(int i = 0; i<homeVillage.resourceBuildings.size();i++){
+                System.out.print(" " + (i+1) + ". "  + homeVillage.resourceBuildings.get(i).name);
+                System.out.print(" - lvl." + homeVillage.resourceBuildings.get(i).level);
+                System.out.println(" - cost in gold: " + homeVillage.resourceBuildings.get(i).level);
+            }
+            System.out.print("Choose building to upgrade: ");
+            building = sc.nextInt();
+
+            upgradeCost = homeVillage.resourceBuildings.get(building-1).level;
+            
+            homeVillage.store.gold -= upgradeCost;
+            homeVillage.resourceBuildings.get(building-1).level += 1;
+            break;
+        }
+    }
+
+    void trainTroop(){
+        System.out.println("Train Troops");
     }
 
     void attackVillage(){

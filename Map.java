@@ -16,7 +16,7 @@ public class Map {
     }
 
     void drawMap(){
-        System.out.println();
+        System.out.println("\nBoard Map");
         System.out.print("@  ");
         for(int k = 0; k < rows; k++){
             System.out.print(k + "  ");
@@ -33,7 +33,7 @@ public class Map {
         System.out.println();
     }
 
-    void addVillage(int[] coord){
-        grid[coord[0]][coord[1]] = "#";
+    void addVillage(int[] coord, String maker){
+        grid[coord[0]][coord[1]] = maker;
     }
 }
