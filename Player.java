@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
     // - - - Attributes - - - //
     String playerName;
+    String villageMarker;
     Village homeVillage;
     // - - - Attributes - - - //
 
@@ -12,10 +14,27 @@ public class Player {
         System.out.print("Enter player name: ");
         playerName = sc.next();
 
-        System.out.print("Choose maker [@, £, $, %, &, #]:");
-        homeVillage.villageMarker = sc.next();
+        System.out.print("Choose maker [@, £, $, %, &, #]: ");
+        villageMarker = sc.next();
 
-        homeVillage = new Village(playerName, homeVillage.villageMarker, map);
+        homeVillage = new Village(playerName, villageMarker, map);
+    }
+
+    void printDetails(){
+        System.out.println("\n- - Village Details - -");
+        System.out.println(" Village owner:    " + homeVillage.ownerName);
+        System.out.println(" Village symbol:   " + homeVillage.villageMarker);
+        System.out.println(" Village health:   " + homeVillage.health);
+        System.out.println(" Location:         (" + homeVillage.location[0] + ", " + homeVillage.location[1] + ")");
+
+        System.out.println("\n Resources");
+        System.out.println(" Wood:             " + homeVillage.store.wood);
+        System.out.println(" Rations:          " + homeVillage.store.rations);
+        System.out.println(" Gold:             " + homeVillage.store.gold);
+
+        System.out.println("\n Troops");
+        System.out.println(" Stationed Troops: " + homeVillage.troops.size());
+        System.out.println(" Armies created:   " + homeVillage.armies.size());
     }
 
     void displayBuildings(){
@@ -32,6 +51,7 @@ public class Player {
             System.out.println(" - lvl." + homeVillage.resourceBuildings.get(i).level);
         }
     }
+
 
     void buildBuilding(){
         System.out.println("\nTypes of buildings: ");
@@ -88,6 +108,7 @@ public class Player {
         }
     }    
 
+
     void upgradeBuilding(){
         System.out.println("\nUpgrade Building");
         System.out.println("Choose building type:");
@@ -133,30 +154,35 @@ public class Player {
         }
     }
 
+
+
+
     void displayTroops(){
         System.out.println("\nDisplay Troops");
-        System.out.println("Number of troops: " + homeVillage.troops.size());
+        ArrayList<Troops> villageTroops = homeVillage.troops;
 
-        int numS = 0;
-        int numC = 0;
-        int numG = 0;
-
-        for(int i = 0; i<homeVillage.troops.size();i++){
-            if(homeVillage.troops.get(i).name == "Soldier"){
-                numS += 1;
-            }else if(homeVillage.troops.get(i).name == "Cavalier"){
-                numC += 1;
-            }else if(homeVillage.troops.get(i).name == "Giant"){
-                numG += 1;
+        int numOfS = 0;
+        int numOfC = 0;
+        int numOfG = 0;
+        
+        for(int i = 0; i < villageTroops.size(); i++){
+            if(villageTroops.get(i).name == "Soldier"){
+                numOfS++;
+            }else if(villageTroops.get(i).name == "Cavalier"){
+                numOfC++;
+            }else if(villageTroops.get(i).name == "Giant"){
+                numOfG++;
             }
         }
-        System.out.println("Soldiers: " + numS);
-        System.out.println("Cavalier: " + numC);
-        System.out.println("Giant: " + numG);
+
+        System.out.print((numOfS != 0) ? "Soldiers: " + numOfS : "");
+        System.out.print((numOfC != 0) ? "\nCavaliers: " + numOfC : "");
+        System.out.println((numOfG != 0) ? "\nGiants: " + numOfG:"");
     }
 
+
     void trainTroop(){
-        System.out.println("Train Troops");
+        System.out.println("\nTrain Troops");
         if(homeVillage.trainingBuildings.size() != 0){
             for(int i = 0; i < homeVillage.trainingBuildings.size(); i++){
                 System.out.println(" " + (i+1) + ". " + homeVillage.trainingBuildings.get(i).name);
@@ -167,16 +193,17 @@ public class Player {
 
             if(cost <= homeVillage.store.rations){
                 homeVillage.store.rations -= cost;
-                
-                TrainingBuilding trainer = homeVillage.trainingBuildings.get(choice);
-                String troopName = trainer.troopName;
-                int troopHealth = trainer.troopHealth;
-                int troopPower = trainer.troopPower;
-                int troopCc = trainer.troopCc;
-                int troopSpeed = trainer.troopSpeed;
+                for(int i = 0; i < homeVillage.trainingBuildings.get(choice).level; i++){
+                    TrainingBuilding trainer = homeVillage.trainingBuildings.get(choice);
+                    String troopName = trainer.troopName;
+                    int troopHealth = trainer.troopHealth;
+                    int troopPower = trainer.troopPower;
+                    int troopCc = trainer.troopCc;
+                    int troopSpeed = trainer.troopSpeed;
 
-                Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
-                homeVillage.troops.add(newTroop);
+                    Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
+                    homeVillage.troops.add(newTroop);
+                }
             }else{
                 System.out.println("Not enough rations");
             }
@@ -185,12 +212,47 @@ public class Player {
         }
     }
 
+
+
+
+    void displayArmy(){
+        System.out.println("Number of armies: " + homeVillage.armies.size());
+    }
+
+
+    void createArmy(){
+        System.out.println("\nCreate Army");
+        Army army = new Army();
+        
+        if(army.armyMembers.size() > 0){
+            homeVillage.armies.add(army);
+        }
+    }
+
+
+
+
     void attackVillage(){
     }
+
 
     void surrenderVillage(){
     }
 
+
     void pass(){
+        System.out.println("New Turn");
+        for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
+            Resources villageStore = homeVillage.store;
+            ResourceBuilding building = homeVillage.resourceBuildings.get(i);
+
+            int wood = building.resourceType.wood * building.level;
+            int rations = building.resourceType.rations * building.level;
+            int gold = building.resourceType.gold * building.level;
+
+            villageStore.wood += wood;
+            villageStore.rations += rations;
+            villageStore.gold += gold;
+        }
     }
 }

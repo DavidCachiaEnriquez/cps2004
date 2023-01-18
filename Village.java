@@ -17,10 +17,10 @@ public class Village {
     ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
     // - - - Attributes - - - //
 
-
     Village(String name, String marker, Map map){
         ownerName = name;
         health = 10;
+        villageMarker = marker;
 
         int[] coord = locationSetter(map.rows);
         location = coord;
@@ -34,19 +34,6 @@ public class Village {
 
         int[] coord = {x, y};
         return(coord);
-    }
-
-    void printDetails(){
-        System.out.println("\nVillage Details");
-        System.out.println(" Village owner: \t" + ownerName);
-        System.out.println(" Village health:\t" + health);
-        System.out.println(" Location:      \t(" + location[0] + ", " + location[1] + ")");
-
-        System.out.println("    ----------");
-        System.out.println(" Resources");
-        System.out.println(" Wood:   \t" + store.wood);
-        System.out.println(" Rations:\t" + store.rations);
-        System.out.println(" Gold:   \t" + store.gold);
     }
 
 }

@@ -29,26 +29,26 @@ public class GameManager {
             System.out.println("  4. Exit");
 
 
-            System.out.println(" Building Actions");
+            System.out.println("\n Building Actions");
             System.out.println("  5. Buildings Details");
             System.out.println("  6. Build Building");
             System.out.println("  7. Upgrade Building");
 
-            System.out.println(" Troop Actions");
+            System.out.println("\n Troop Actions");
             System.out.println("  8. Troop Details");
             System.out.println("  9. Train Troops");
 
-            System.out.println(" Army Actions");
+            System.out.println("\n Army Actions");
             System.out.println("  10. Display Army");
             System.out.println("  11. Create Army");
 
 
-            System.out.println("\nEnter menu option");
+            System.out.print("\nEnter menu option: ");
             menu = sc.nextInt();
 
             switch(menu){
                 case 1:
-                player.homeVillage.printDetails();
+                player.printDetails();
 
                 System.out.println("\nC to continue");
                 sc.next();
@@ -62,7 +62,7 @@ public class GameManager {
                 break;
                 
                 case 3:
-                newTurn(player);
+                player.pass();
 
                 System.out.println("\nC to continue");
                 sc.next();
@@ -104,11 +104,15 @@ public class GameManager {
                 break;
 
                 case 10:
+                player.displayArmy();
+
                 System.out.println("\nC to continue");
                 sc.next();
                 break;
 
                 case 11:
+                player.createArmy();
+                
                 System.out.println("\nC to continue");
                 sc.next();
                 break;
@@ -116,22 +120,6 @@ public class GameManager {
             System.out.print("\033[H\033[2J");  
         }
 
-    }
-    
-    void newTurn(Player player){
-        System.out.println("New Turn");
-        for(int i = 0; i < player.homeVillage.resourceBuildings.size(); i++){
-            Resources villageStore = player.homeVillage.store;
-            ResourceBuilding building = player.homeVillage.resourceBuildings.get(i);
-
-            int wood = building.resourceType.wood * building.level;
-            int rations = building.resourceType.rations * building.level;
-            int gold = building.resourceType.gold * building.level;
-
-            villageStore.wood += wood;
-            villageStore.rations += rations;
-            villageStore.gold += gold;
-        }
     }
 }
 
