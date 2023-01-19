@@ -26,7 +26,6 @@ public class Player {
     }
 
 
-
     void demoMenuV2(){
         int menu = 0;
         while(menu != 5 && homeVillage.health != 0){
@@ -78,7 +77,6 @@ public class Player {
         }
     }
 
-
     void buildingMenu(){
         System.out.println("Buildings Menu");
         System.out.println(" 1. Build Building");
@@ -102,7 +100,6 @@ public class Player {
         }
     }
 
-
     void troopMenu(){
         System.out.println("Troop Menu");
         System.out.println(" 1. Train Troops");
@@ -122,7 +119,6 @@ public class Player {
             sc.next();
         }
     }
-
 
     void combatMenu(){
         System.out.println("Combat Menu");
