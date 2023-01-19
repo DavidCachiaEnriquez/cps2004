@@ -27,7 +27,6 @@ public class GameManager {
             turnController(players);
 
             armiesMarch(players);
-            armiesCombat(players);
 
             deathCheck(players);
             winFlag = winCheck(players);
@@ -55,13 +54,39 @@ public class GameManager {
 
     void armiesMarch(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
-            
+            ArrayList<Army> armies = players.get(i).homeVillage.armies;
+
+            for(int j = 0; j < armies.size(); j++){
+                Army currArmy = armies.get(j);
+                if(currArmy.marchSpeed > currArmy.marchDistance){
+                    armiesCombat(currArmy);
+                }else{
+                    currArmy.marchDistance -= currArmy.marchSpeed;
+                }
+            }
         }
     }
 
 
-    void armiesCombat(ArrayList<Player> players){
+    void armiesCombat(Army attackers){
+        System.out.println("Combat");
+        System.out.println("Attackers: " + attackers.attackPower);
 
+        Village defendingVillage = villageGetter(attackers.targetLocation);
+        if(defendingVillage.homeTroops.size() > 0){
+            System.out.println("Defenders: ");
+        }
+        System.out.println();
+    }
+
+    Village villageGetter(int[] coord){
+        for(int i = 0; i < players.size(); i++){
+            Village tempVillage = players.get(i).homeVillage;
+            if(tempVillage.location == coord){
+                return tempVillage;
+            }
+        }
+        return null;
     }
 
 
