@@ -352,7 +352,13 @@ public class Village {
         ArrayList<Player> otherPlayers = listWithoutUser(players);
         Player target = chooseTarget(otherPlayers);
 
-        target.homeVillage.villageDetails();
+        target.homeVillage.reducedVillageDetails();
+
+        double dist = totalDistance(target.homeVillage.location);
+        System.out.println("Distance: " + dist);
+
+        Army newArmy = new Army(armies, homeTroops, dist, location, target.homeVillage.location);
+        armies.add(newArmy);
     }
 
     ArrayList<Player> listWithoutUser(ArrayList<Player> allPlayers){
@@ -377,6 +383,18 @@ public class Village {
         return choices.get(i);
     }
 
+    void reducedVillageDetails(){
+        System.out.println("\nVillage owner:    " + ownerName);
+        System.out.println("Village symbol:   " + villageMarker);
+        System.out.println("Location:         (" + location[1] + ", " + location[0] + ")");
+    }
+
+    double totalDistance(int[] tLocation){
+        int x1 = location[1]; int y1 = location[0];
+        int x2 = tLocation[1]; int y2 = tLocation[0];
+
+        return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+    }
 
 
 
