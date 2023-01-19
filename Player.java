@@ -102,7 +102,6 @@ public class Player {
         System.out.println("Troop Menu");
         System.out.println(" 1. Train Troops");
         System.out.println(" 2. Troop Details");
-        System.out.println(" 3. Exit");
 
         System.out.print("\nMenu Selection: ");
         int menu = sc.nextInt();
@@ -110,7 +109,7 @@ public class Player {
         System.out.print("\033[H\033[2J");  
         switch(menu){
             case 1: homeVillage.trainTroop(); break;
-            case 2: homeVillage.displayTroops(); break;
+            case 2: homeVillage.displayVillageTroops(); break;
         }
 
         if(menu != 3){
