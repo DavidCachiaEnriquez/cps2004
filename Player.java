@@ -18,7 +18,7 @@ public class Player {
         System.out.print("Enter player name: ");
         playerName = sc.next();
 
-        System.out.print("Choose maker [@, £, $, %, &, #]: ");
+        System.out.print("Enter marker: ");
         villageMarker = sc.next();
 
         homeVillage = new Village(playerName, villageMarker, map);
@@ -132,7 +132,7 @@ public class Player {
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
-            case 1: homeVillage.attackVillage(); break;
+            case 1: homeVillage.attackVillage(players, worldMap); break;
             case 2: homeVillage.displayArmies(); break;
             case 3: homeVillage.gameSurrender(); break;
         }

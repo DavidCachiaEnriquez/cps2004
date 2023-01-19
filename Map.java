@@ -14,7 +14,7 @@ public class Map {
 
         for (int i = 0; i < rows; i++){
             for(int j = 0; j < columns; j++){
-                grid[i][j] = "=";
+                grid[i][j] = "-";
             }
         }
     }

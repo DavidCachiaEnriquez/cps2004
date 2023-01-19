@@ -11,7 +11,7 @@ public class Village {
 
     Resources store = new Resources();
 
-    ArrayList<Troops> troops = new ArrayList<Troops>();
+    ArrayList<Troops> homeTroops = new ArrayList<Troops>();
     ArrayList<Army> armies = new ArrayList<Army>();
 
     ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
@@ -34,7 +34,7 @@ public class Village {
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
 
-        while(map.grid[x][y] != "="){
+        while(map.grid[x][y] != "-"){
             x = (int)(Math.random() * size);
             y = (int)(Math.random() * size);
         }
@@ -302,21 +302,21 @@ public class Village {
             int troopSpeed = trainer.troopSpeed;
 
             Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
-            troops.add(newTroop);
+            homeTroops.add(newTroop);
         }
     }
 
 
 
     void displayVillageTroops(){
-        ArrayList<Troops> villageTroops = troops;
+        ArrayList<Troops> villageTroops = homeTroops;
         System.out.println("Village Troops:");
         displayTroops(villageTroops);
     }
 
     void displayTroops(ArrayList<Troops> troops){
-        if(troops.size() != 0){
-            int[] troopArray = countNumberOfTroops(troops);
+        if(homeTroops.size() != 0){
+            int[] troopArray = countNumberOfTroops(homeTroops);
 
             System.out.print((troopArray[0] != 0) ? " Soldiers: " + troopArray[0] : "");
             System.out.print((troopArray[1] != 0) ? "\n Cavaliers: " + troopArray[1] : "");
@@ -344,8 +344,40 @@ public class Village {
 
 
 
-    void attackVillage(){
+    void attackVillage(ArrayList<Player> players, Map map){
+        System.out.println("Attacking Village!");
+        
+        map.drawMap();
+        
+        ArrayList<Player> otherPlayers = listWithoutUser(players);
+        Player target = chooseTarget(otherPlayers);
+
+        target.homeVillage.villageDetails();
     }
+
+    ArrayList<Player> listWithoutUser(ArrayList<Player> allPlayers){
+        ArrayList<Player> tempList = allPlayers;
+        for(int i = 0; i < tempList.size(); i++){
+            if(tempList.get(i).playerName == ownerName){
+                tempList.remove(i);
+            }
+        }
+        return tempList;
+    }
+
+    Player chooseTarget(ArrayList<Player> choices){
+        System.out.println("\nChoose Target");
+        for(int i  = 0; i <choices.size(); i++){
+            System.out.println(" " + (i+1) + ". " + choices.get(i).playerName);
+        }
+
+        System.out.print("\nTarget number: ");
+        int i = sc.nextInt()-1;
+
+        return choices.get(i);
+    }
+
+
 
 
 
@@ -354,9 +386,15 @@ public class Village {
 
 
 
+
+
+
+
     void gameSurrender(){
         health = 0;
     }
+
+
 
     void pass(){
         for(int i = 0; i < resourceBuildings.size(); i++){
