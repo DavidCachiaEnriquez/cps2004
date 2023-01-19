@@ -88,9 +88,6 @@ public class Village {
         }else{
             System.out.println("\n No resource buildings yet...");
         }
-
-        System.out.print("\nC to continue: ");
-        sc.next();
     }
 
     void buildBuilding(){        
@@ -216,9 +213,6 @@ public class Village {
         }else{
             System.out.println("\nNot enough wood...");
         }
-
-        System.out.print("\nC to continue: ");
-        sc.next();
     }    
 
     void upgradeBuilding(){
@@ -282,10 +276,6 @@ public class Village {
             }
             break;
         }
-
-        
-        System.out.print("\nC to continue: ");
-        sc.next();
     }
 
 
@@ -310,9 +300,6 @@ public class Village {
         }else{
             System.out.println("No troops trained yet...");
         }
-
-        System.out.print("\nC to continue: ");
-        sc.next();
     }
 
     void trainTroop(){
@@ -345,9 +332,6 @@ public class Village {
         }else{
             System.out.println("No training buildings built yet...");
         }
-
-        System.out.print("\nC to continue: ");
-        sc.next();
     }
 
 
@@ -377,9 +361,6 @@ public class Village {
         }else{
             System.out.println("No armies formed yet...");
         }
-        
-        System.out.print("\nC to continue: ");
-        sc.next();
     }
 
     void createArmy(){
@@ -480,9 +461,6 @@ public class Village {
         }else{
             System.out.println("No troops trained yet...");
         }
-      
-        System.out.print("\nC to continue: ");
-        sc.next();
     }
 
 

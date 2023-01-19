@@ -22,14 +22,12 @@ public class GameManager {
             playerAdder(map, players);
         }
 
-        players.get(0).demoMenuV2();
-
-        // boolean winFlag = true;
-        // while(winFlag != false){
-        //     turnController(players);
-        //     deathCheck(players);
-        //     winFlag = winCheck(players);
-        // }
+        boolean winFlag = true;
+        while(winFlag != false){
+            turnController(players);
+            deathCheck(players);
+            winFlag = winCheck(players);
+        }
 
     }
 
@@ -40,7 +38,7 @@ public class GameManager {
 
     void turnController(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
-            players.get(i).demoMenu();
+            players.get(i).demoMenuV2();
         }       
     }
 
