@@ -11,8 +11,6 @@ public class GameManager {
     Scanner sc = new Scanner(System.in);
 
     GameManager(){
-
-       
         System.out.print("Enter number of players: ");
         int playerNum = sc.nextInt();
         System.out.println();
@@ -28,11 +26,10 @@ public class GameManager {
             deathCheck(players);
             winFlag = winCheck(players);
         }
-
     }
 
     void playerAdder(Map map, ArrayList<Player> players){
-        Player playerTemp = new Player(map);
+        Player playerTemp = new Player(map, players);
         players.add(playerTemp);
     }
 
