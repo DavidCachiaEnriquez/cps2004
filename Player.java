@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
@@ -5,12 +6,15 @@ public class Player {
     String villageMarker;  
     Village homeVillage;    
 
-    Map worldMap;          
+    Map worldMap;     
+    ArrayList<Player> players;     
 
     Scanner sc = new Scanner(System.in);
 
-    Player(Map map){
+    Player(Map map, ArrayList<Player> allPlayers){
         worldMap = map;
+        players = allPlayers;
+
         System.out.print("Enter player name: ");
         playerName = sc.next();
 
@@ -21,9 +25,11 @@ public class Player {
         System.out.println();
     }
 
+
+
     void demoMenuV2(){
         int menu = 0;
-        while(menu != 5){
+        while(menu != 5 && homeVillage.health != 0){
             System.out.print("\033[H\033[2J");
             System.out.println("Main Menu");
             System.out.println(" 1. General Commands");
@@ -44,7 +50,7 @@ public class Player {
                     case 2: buildingMenu(); break;
                     case 3: troopMenu(); break;
                     case 4: combatMenu(); break;
-                    case 5: pass(); break;
+                    case 5: homeVillage.pass(); break;
                 }
             }
         }
@@ -130,29 +136,14 @@ public class Player {
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
-            case 1: attackVillage();
-            case 2: homeVillage.displayArmy();
+            case 1: homeVillage.attackVillage(); break;
+            case 2: homeVillage.displayArmies(); break;
             case 3: homeVillage.gameSurrender(); break;
-            
         }
 
         if(menu != 3 && menu != 4){
             System.out.print("\nC to Continue: ");
             sc.next();
-        }
-    }
-
-    void attackVillage(){
-        System.out.println("Create");
-        homeVillage.createArmy();
-    }
-
-
-    void pass(){
-        for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
-            ResourceBuilding building = homeVillage.resourceBuildings.get(i);
-            int[] newResources = building.generateResources();
-            homeVillage.store.updateStoreContent(newResources[0], newResources[1], newResources[2]);
         }
     }
 }

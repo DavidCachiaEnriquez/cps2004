@@ -25,14 +25,19 @@ public class Village {
         health = 50;
         villageMarker = marker;
 
-        int[] coord = locationSetter(map.rows);
+        int[] coord = locationSetter(map.rows, map);
         location = coord;
         map.addVillage(coord, marker);
     }
 
-    int[] locationSetter(int size){
+    int[] locationSetter(int size, Map map){
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
+
+        while(map.grid[x][y] != "="){
+            x = (int)(Math.random() * size);
+            y = (int)(Math.random() * size);
+        }
 
         int[] coord = {x, y};
         return(coord);
@@ -45,12 +50,14 @@ public class Village {
         System.out.println(" Village owner:    " + ownerName);
         System.out.println(" Village symbol:   " + villageMarker);
         System.out.println(" Village health:   " + health);
-        System.out.println(" Location:         (" + location[0] + ", " + location[1] + ")");
+        System.out.println(" Location:         (" + location[1] + ", " + location[0] + ")");
 
         System.out.println("\n Resources");
         store.printContent();
     }
 
+
+    
     void buildBuilding(){        
         System.out.println("Types of Buildings: ");
         System.out.println(" 1. Troop Training");
@@ -337,80 +344,26 @@ public class Village {
 
 
 
-    void createArmy(){
-        Army army = new Army();
-        displayVillageTroops();
-
-        ArrayList<Troops> villageTroops = troops;
-        
-        if(villageTroops.size() != 0){
-
-            int[] troopArray = countNumberOfTroops(villageTroops);
-
-            System.out.println("\nAdding Troops to Army");
-            if(troopArray[0] != 0){
-                System.out.print(" Number of Soldiers to add: ");
-                int input = sc.nextInt();
-                addTroops(input, troopArray[0], villageTroops, army, "Soldier");
-            }
-
-            if(troopArray[1] != 0){
-                System.out.print(" Number of Cavaliers to add: ");
-                int input = sc.nextInt();
-                addTroops(input, troopArray[0], villageTroops, army, "Cavalier");
-            }
-
-            if(troopArray[2] != 0){
-                System.out.print(" Number of Giants to add: ");
-                int input = sc.nextInt();
-                addTroops(input, troopArray[0], villageTroops, army, "Giant");
-            }
-
-            if(army.armyMembers.size() > 0){
-                armies.add(army);
-            }
-        }
-    }
-
-    void addTroops(int input, int max, ArrayList<Troops> villageTroops, Army army, String name){
-        while(input > max | input < 0){
-            if(input > max | input < 0){
-                System.out.print("  Invalid number of troops: ");
-                input = sc.nextInt();
-            }
-        }
-        
-        for(int i = 0; i < villageTroops.size(); i++){
-            if(villageTroops.get(i).name == name){
-                army.armyMembers.add(villageTroops.get(i));
-                villageTroops.remove(i);
-                input--;
-            }
-            if(input == 0){
-                break;
-            }
-        }
+    void attackVillage(){
     }
 
 
 
-    void displayArmy(){
-        if(armies.size() != 0){
-            for(int i = 0; i < armies.size();i++){
-                System.out.println("\nArmy " + (i+1));
-                ArrayList<Troops> armyTroops = armies.get(i).armyMembers;
-                displayTroops(armyTroops);
-            }
-        }else{
-            System.out.println("No armies formed yet...");
-        }
+    void displayArmies(){
     }
 
 
 
     void gameSurrender(){
         health = 0;
-        pass();
+    }
+
+    void pass(){
+        for(int i = 0; i < resourceBuildings.size(); i++){
+            ResourceBuilding building = resourceBuildings.get(i);
+            int[] newResources = building.generateResources();
+            store.updateStoreContent(newResources[0], newResources[1], newResources[2]);
+        }
     }
 
 }
