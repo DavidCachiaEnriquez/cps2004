@@ -12,20 +12,24 @@ public class GameManager {
 
     GameManager(){
 
+       
         System.out.print("Enter number of players: ");
         int playerNum = sc.nextInt();
         System.out.println();
 
+        
         for(int i = 0; i < playerNum; i++){
             playerAdder(map, players);
         }
 
-        boolean winFlag = true;
-        while(winFlag != false){
-            turnController(players);
-            deathCheck(players);
-            winFlag = winCheck(players);
-        }
+        players.get(0).demoMenuV2();
+
+        // boolean winFlag = true;
+        // while(winFlag != false){
+        //     turnController(players);
+        //     deathCheck(players);
+        //     winFlag = winCheck(players);
+        // }
 
     }
 

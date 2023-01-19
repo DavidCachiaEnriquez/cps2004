@@ -19,6 +19,10 @@ public class Map {
         }
     }
 
+    void addVillage(int[] coord, String maker){
+        grid[coord[0]][coord[1]] = maker;
+    }
+
     void drawMap(){
         System.out.println("     - - - Board Map - - - ");
         System.out.print("@  ");
@@ -34,13 +38,5 @@ public class Map {
             }
             System.out.println();
         }
-        System.out.println();
-
-        System.out.print("\nC to continue: ");
-        sc.next();
-    }
-
-    void addVillage(int[] coord, String maker){
-        grid[coord[0]][coord[1]] = maker;
     }
 }

@@ -31,7 +31,6 @@ public class Village {
     }
 
     int[] locationSetter(int size){
-
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
 
@@ -39,9 +38,10 @@ public class Village {
         return(coord);
     }
 
-
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    
     void villageDetails(){
-        System.out.println("\n- - Village Details - -");
+        System.out.println("- - Village Details - -");
         System.out.println(" Village owner:    " + ownerName);
         System.out.println(" Village symbol:   " + villageMarker);
         System.out.println(" Village health:   " + health);
@@ -53,9 +53,6 @@ public class Village {
         System.out.println("\n Troops");
         System.out.println(" Stationed Troops: " + troops.size());
         System.out.println(" Armies created:   " + armies.size());
-
-        System.out.print("\nC to Continue: ");
-        sc.next();
     }
 
     void pass(){
@@ -70,20 +67,24 @@ public class Village {
     void displayBuildings(){
         if(trainingBuildings.size() != 0){
             System.out.println(" Troop Buildings: ");
+
             for(int i = 0; i<trainingBuildings.size();i++){
                 System.out.print("  " + trainingBuildings.get(i).name);
                 System.out.println(" - lvl." + trainingBuildings.get(i).level);
             }
+
         }else{
             System.out.println(" No troop buildings yet...");
         }
 
         if(resourceBuildings.size() != 0){
             System.out.println("\n Resources Buildings");
+
             for(int i = 0; i<resourceBuildings.size();i++){
                 System.out.print("  " + resourceBuildings.get(i).name);
                 System.out.println(" - lvl." + resourceBuildings.get(i).level);
             }
+
         }else{
             System.out.println("\n No resource buildings yet...");
         }
@@ -102,6 +103,7 @@ public class Village {
         int choice = sc.nextInt();
 
         if(store.wood > 0){
+
             if(choice == 1){
                 System.out.println("\nChoose type:");
                 System.out.println(" 1. Barracks (Soldier)");
@@ -114,23 +116,34 @@ public class Village {
                 
                 if(type != 4){
                     boolean flag = false;
+
                     if(type == 1){
+
                         for(int i = 0; i < trainingBuildings.size(); i++){
+
                             if(trainingBuildings.get(i).troopName == "Soldier"){
                                 flag = true;
                             }
+
                         }
+
                     }else if(type == 2){
+
                         for(int i = 0; i < trainingBuildings.size(); i++){
+
                             if(trainingBuildings.get(i).troopName == "Cavalier"){
                                 flag = true;
                             }
+
                         }
                     }else if(type == 3){
+
                         for(int i = 0; i < trainingBuildings.size(); i++){
+
                             if(trainingBuildings.get(i).troopName == "Giant"){
                                 flag = true;
                             }
+                            
                         }
                     }
 
@@ -141,7 +154,7 @@ public class Village {
                         System.out.println("Built!");
                     }else{
                     System.out.println("Already Built");
-                }
+                    }
                 }
 
             }else if(choice == 2){
@@ -156,24 +169,36 @@ public class Village {
 
                 if(type != 4){
                     boolean flag = false;
+
                     if(type == 1){
+
                         for(int i = 0; i < resourceBuildings.size(); i++){
+
                             if(resourceBuildings.get(i).name == "Lumberyard"){
                                 flag = true;
                             }
+
                         }
                     }else if(type == 2){
+
                         for(int i = 0; i < resourceBuildings.size(); i++){
+
                             if(resourceBuildings.get(i).name == "Mess Hall"){
                                 flag = true;
                             }
+
                         }
+
                     }else if(type == 3){
+
                         for(int i = 0; i < resourceBuildings.size(); i++){
+
                             if(resourceBuildings.get(i).name == "Mines"){
                                 flag = true;
                             }
+                            
                         }
+
                     }
 
                     if(flag == false){
@@ -185,7 +210,9 @@ public class Village {
                         System.out.println("Already Built");
                     }
                 }
+
             }
+
         }else{
             System.out.println("\nNot enough wood...");
         }
