@@ -8,6 +8,8 @@ public class GameManager {
 
     ArrayList<Player> players = new ArrayList<Player>();
 
+    int turnCounter = 1;
+
     Scanner sc = new Scanner(System.in);
 
     GameManager(){
@@ -23,9 +25,19 @@ public class GameManager {
         boolean winFlag = true;
         while(winFlag != false){
             turnController(players);
+
+            armiesMarch(players);
+            armiesCombat(players);
+
             deathCheck(players);
             winFlag = winCheck(players);
+
+            System.out.print("Turn " + turnCounter);
+            turnCounter++;
+            System.out.print("\nC to go to next turn: ");
+            sc.next();
         }
+
     }
 
     void playerAdder(Map map, ArrayList<Player> players){
@@ -33,19 +45,34 @@ public class GameManager {
         players.add(playerTemp);
     }
 
+
     void turnController(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             players.get(i).demoMenuV2();
         }       
     }
 
+
+    void armiesMarch(ArrayList<Player> players){
+        for(int i = 0; i < players.size(); i++){
+            
+        }
+    }
+
+
+    void armiesCombat(ArrayList<Player> players){
+
+    }
+
+
     void deathCheck(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
-            if(players.get(i).homeVillage.health == 0){
+            if(players.get(i).homeVillage.health <= 0){
                 players.remove(i);
             }
         }
     }
+
 
     boolean winCheck(ArrayList<Player> players){
         if(players.size() == 1){

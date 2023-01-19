@@ -348,7 +348,6 @@ public class Village {
         System.out.println("Attacking Village!");
         
         map.drawMap();
-        
         ArrayList<Player> otherPlayers = listWithoutUser(players);
         Player target = chooseTarget(otherPlayers);
 
@@ -357,15 +356,15 @@ public class Village {
         double dist = totalDistance(target.homeVillage.location);
         System.out.println("Distance: " + dist);
 
-        Army newArmy = new Army(armies, homeTroops, dist, location, target.homeVillage.location);
+        Army newArmy = new Army(homeTroops, dist, location, target.homeVillage.location);
         armies.add(newArmy);
     }
 
-    ArrayList<Player> listWithoutUser(ArrayList<Player> allPlayers){
-        ArrayList<Player> tempList = allPlayers;
-        for(int i = 0; i < tempList.size(); i++){
-            if(tempList.get(i).playerName == ownerName){
-                tempList.remove(i);
+    ArrayList<Player> listWithoutUser(ArrayList<Player> players){
+        ArrayList<Player> tempList = new ArrayList<Player>();
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).playerName != ownerName){
+                tempList.add(players.get(i));
             }
         }
         return tempList;
@@ -398,13 +397,8 @@ public class Village {
 
 
 
-
     void displayArmies(){
     }
-
-
-
-
 
 
 
@@ -415,6 +409,11 @@ public class Village {
 
 
     void pass(){
+        updateResources();
+        updateArmies();
+    }
+
+    void updateResources(){
         for(int i = 0; i < resourceBuildings.size(); i++){
             ResourceBuilding building = resourceBuildings.get(i);
             int[] newResources = building.generateResources();
@@ -422,4 +421,9 @@ public class Village {
         }
     }
 
+    void updateArmies(){
+        for(int i = 0; i < armies.size(); i++){
+            System.out.println(armies.get(i).armyMembers.size());
+        }
+    }
 }

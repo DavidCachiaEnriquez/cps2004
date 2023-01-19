@@ -18,7 +18,7 @@ public class Army {
 
     Scanner sc = new Scanner(System.in);
 
-    Army(ArrayList<Army> armies, ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc){
+    Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc){
         System.out.println("\nCreating army!");
         if(homeTroops.size() != 0){
             addTroops(homeTroops);
@@ -80,6 +80,7 @@ public class Army {
             attackPower += armyMembers.get(i).power;
             armyHealth += armyMembers.get(i).health;
             resourceCC += armyMembers.get(i).cc;
+            
             if(armyMembers.get(i).speed < marchSpeed){
                 marchSpeed = armyMembers.get(i).speed;
             }
