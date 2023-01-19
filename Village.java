@@ -49,23 +49,7 @@ public class Village {
 
         System.out.println("\n Resources");
         store.printContent();
-
-        System.out.println("\n Troops");
-        System.out.println(" Stationed Troops: " + troops.size());
-        System.out.println(" Armies created:   " + armies.size());
     }
-
-
-
-    void pass(){
-        for(int i = 0; i < resourceBuildings.size(); i++){
-            ResourceBuilding building = resourceBuildings.get(i);
-            int[] newResources = building.generateResources();
-            store.updateStoreContent(newResources[0], newResources[1], newResources[2]);
-        }
-    }
-
-
 
     void buildBuilding(){        
         System.out.println("Types of Buildings: ");

@@ -23,29 +23,28 @@ public class Player {
 
     void demoMenuV2(){
         int menu = 0;
-        while(menu != 6){
+        while(menu != 5){
             System.out.print("\033[H\033[2J");
             System.out.println("Main Menu");
             System.out.println(" 1. General Commands");
             System.out.println(" 2. Buildings Commands");
             System.out.println(" 3. Troop Commands");
-            System.out.println(" 4. Army Commands");
-            System.out.println(" 5. Combat Commands");
-            System.out.println(" 6. Exit");
+            System.out.println(" 4. Combat Commands");
+            System.out.println(" 5. Pass");
 
             System.out.print("\nMenu Selection: ");
             menu = sc.nextInt();
 
             if(menu == 6){
-                System.out.println("Exiting...");
+                System.out.println("\nExiting...");
             }else{            
                 System.out.print("\033[H\033[2J");  
                 switch(menu){
                     case 1: generalMenu(); break;
                     case 2: buildingMenu(); break;
                     case 3: troopMenu(); break;
-                    case 4: armyMenu(); break;
-                    case 5: combatMenu(); break;
+                    case 4: combatMenu(); break;
+                    case 5: pass(); break;
                 }
             }
         }
@@ -56,8 +55,7 @@ public class Player {
         System.out.println("General Menu");
         System.out.println(" 1. Village Details");
         System.out.println(" 2. Display Map");
-        System.out.println(" 3. Pass Turn");
-        System.out.println(" 4. Exit");
+        System.out.println(" 3. Exit");
 
         System.out.print("\nMenu Selection: ");
         int menu = sc.nextInt();
@@ -66,14 +64,14 @@ public class Player {
         switch(menu){
             case 1: homeVillage.villageDetails(); break;
             case 2: worldMap.drawMap(); break;
-            case 3: homeVillage.pass(); break;
         }
 
-        if(menu != 3 && menu != 4){
+        if(menu != 3){
             System.out.print("\nC to Continue: ");
             sc.next();
         }
     }
+
 
     void buildingMenu(){
         System.out.println("Buildings Menu");
@@ -98,6 +96,7 @@ public class Player {
         }
     }
 
+
     void troopMenu(){
         System.out.println("Troop Menu");
         System.out.println(" 1. Train Troops");
@@ -118,43 +117,42 @@ public class Player {
         }
     }
 
-    void armyMenu(){
-        System.out.println("Army Menu");
-        System.out.println(" 1. Create Army");
-        System.out.println(" 2. Display Army");
-        System.out.println(" 3. Exit");        
+
+    void combatMenu(){
+        System.out.println("Combat Menu");
+        System.out.println(" 1. Attack Village");
+        System.out.println(" 2. Outgoing Armies");
+        System.out.println(" 3. Surrender");
+        System.out.println(" 4. Exit");
 
         System.out.print("\nMenu Selection: ");
         int menu = sc.nextInt();
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
-            case 1: homeVillage.createArmy(); break;
-            case 2: homeVillage.displayArmy(); break;
+            case 1: attackVillage();
+            case 2: homeVillage.displayArmy();
+            case 3: homeVillage.gameSurrender(); break;
+            
         }
 
-        if(menu != 3){
+        if(menu != 3 && menu != 4){
             System.out.print("\nC to Continue: ");
             sc.next();
         }
     }
 
-    void combatMenu(){
-        System.out.println("Combat Menu");
-        System.out.println(" 1. Surrender");
-        System.out.println(" 2. Exit");
+    void attackVillage(){
+        System.out.println("Create");
+        homeVillage.createArmy();
+    }
 
-        System.out.print("\nMenu Selection: ");
-        int menu = sc.nextInt();
 
-        System.out.print("\033[H\033[2J");  
-        switch(menu){
-            case 1: homeVillage.gameSurrender(); break;
-        }
-
-        if(menu != 1 && menu != 2){
-            System.out.print("\nC to Continue: ");
-            sc.next();
+    void pass(){
+        for(int i = 0; i < homeVillage.resourceBuildings.size(); i++){
+            ResourceBuilding building = homeVillage.resourceBuildings.get(i);
+            int[] newResources = building.generateResources();
+            homeVillage.store.updateStoreContent(newResources[0], newResources[1], newResources[2]);
         }
     }
 }
