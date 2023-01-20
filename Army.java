@@ -139,17 +139,13 @@ public class Army {
             if(validResources.size() > 0){
                 int randomNum = validResources.get((int)(Math.random() * validResources.size()));
                 
-                System.out.println(randomNum);
                 if(randomNum == 0){
-                    System.out.println("wood");
                     resourceStore[randomNum]++;
                     village.store.wood--;
                 }else if(randomNum == 1){
-                    System.out.println("rations");
                     resourceStore[randomNum]++;
                     village.store.rations--;
                 }else{
-                    System.out.println("gold");
                     resourceStore[randomNum]++;
                     village.store.gold--;
                 }

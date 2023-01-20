@@ -62,6 +62,7 @@ public class GameManager {
                 Army currArmy = armies.get(j);
                 if(currArmy.marchSpeed > currArmy.marchDistance){
                     armiesCombat(currArmy);
+                    System.out.println(currArmy.resourceStore[0]);
                 }else{
                     currArmy.marchDistance -= currArmy.marchSpeed;
                 }
@@ -80,7 +81,6 @@ public class GameManager {
             if(winCheck == true){
                 defendingVillage.depositArmyMembers(defenceArmy);
             }else{
-                System.out.println("Attackers win");
                 defendingVillage.health -= attackers.attackPower;
                 attackers.stealResources(defendingVillage);
             }
