@@ -106,4 +106,23 @@ public class Army {
             }
         }
     }
+
+
+    void armyCombat(int damage){
+        while(damage > 0){
+            if(armyMembers.size() > 0){
+                if(armyMembers.get(0).health <= damage){
+                    damage -= armyMembers.get(0).health;
+                    armyMembers.remove(0);
+                }else{
+                    armyMembers.get(0).health -= damage;
+                    damage -= damage;
+                }
+            }else{
+                break;
+            }
+        }
+    }
+
+
 }

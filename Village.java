@@ -426,4 +426,14 @@ public class Village {
             System.out.println(armies.get(i).armyMembers.size());
         }
     }
+
+
+    void depositArmyMembers(Army army){
+        for(int i = 0; i < army.armyMembers.size(); i++){
+            homeTroops.add(army.armyMembers.get(i));
+        }
+    }
+
+
+
 }

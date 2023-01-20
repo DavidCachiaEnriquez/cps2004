@@ -76,7 +76,15 @@ public class GameManager {
         if(defendingVillage.homeTroops.size() > 0){
             Army defenceArmy = defendingArmy(defendingVillage);
 
-            combatResult(attackers, defenceArmy);
+            boolean winCheck = combatResult(attackers, defenceArmy);
+            if(winCheck == true){
+                defendingVillage.depositArmyMembers(defenceArmy);
+            }else{
+                System.out.println("Attackers win");
+
+                
+            }
+
         }else{
             System.out.println("No defenders");
         }
@@ -95,54 +103,28 @@ public class GameManager {
 
     Army defendingArmy(Village village){
         Army tempArmy = new Army(village.homeTroops, 0, village.location, village.location, true);
-        for(int i = 0; i <= village.homeTroops.size()+1; i++){
+        for(int i = 0; i <= village.homeTroops.size(); i++){
             village.homeTroops.remove(0);
         }
         System.out.println(village.homeTroops.size());
         return tempArmy;
     }
 
-    void combatResult(Army attackingArmy, Army defendingArmy){
+    boolean combatResult(Army attackingArmy, Army defendingArmy){
         int damageCounterA = attackingArmy.attackPower;
         int damageCounterB = defendingArmy.attackPower;
 
-        while(damageCounterA > 0){
-            if(defendingArmy.armyMembers.size() > 0){
-                if(defendingArmy.armyMembers.get(0).health <= damageCounterA){
-                    damageCounterA -= defendingArmy.armyMembers.get(0).health;
-                    defendingArmy.armyMembers.remove(0);
-                }else{
-                    defendingArmy.armyMembers.get(0).health -= damageCounterA;
-                    damageCounterA -= damageCounterA;
-                }
-            }else{
-                break;
-            }
-        }
+        defendingArmy.armyCombat(damageCounterA);
         defendingArmy.addStats();
 
-        while(damageCounterB != 0){
-            if(attackingArmy.armyMembers.size() > 0){
-                if(attackingArmy.armyMembers.get(0).health <= damageCounterB){
-                    damageCounterB -= attackingArmy.armyMembers.get(0).health;
-                    attackingArmy.armyMembers.remove(0);
-                }else{
-                    attackingArmy.armyMembers.get(0).health -= damageCounterB;
-                    damageCounterB -= damageCounterB;
-                }
-            }else{
-                break;
-            }
-        }
+        attackingArmy.armyCombat(damageCounterB);
         attackingArmy.addStats();
 
-        if(defendingArmy.armyMembers.size() == 0 && attackingArmy.armyMembers.size() != 0){
-            System.out.println("\nAttackers Win");
-        }else{
-            System.out.println("\nDefenders Win");
-
-        }
+        return(attackingArmy.armyMembers.size() == 0 ? true: false);
     }
+
+
+
 
 
     void deathCheck(ArrayList<Player> players){
