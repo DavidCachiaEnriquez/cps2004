@@ -61,7 +61,7 @@ public class GameManager {
             for(int j = 0; j < armies.size(); j++){
                 Army currArmy = armies.get(j);
                 if(currArmy.marchSpeed > currArmy.marchDistance){
-                    armiesCombat(currArmy);
+                    currArmy.armiesCombat(players);
                     System.out.println(currArmy.resourceStore[0]);
                 }else{
                     currArmy.marchDistance -= currArmy.marchSpeed;
@@ -71,58 +71,6 @@ public class GameManager {
     }
 
 
-    void armiesCombat(Army attackers){
-        Village defendingVillage = villageGetter(attackers.targetLocation);
-
-        if(defendingVillage.homeTroops.size() > 0){
-            Army defenceArmy = defendingArmy(defendingVillage);
-
-            boolean winCheck = combatResult(attackers, defenceArmy);
-            if(winCheck == true){
-                defendingVillage.depositArmyMembers(defenceArmy);
-            }else{
-                defendingVillage.health -= attackers.attackPower;
-                attackers.stealResources(defendingVillage);
-            }
-
-        }else{
-            defendingVillage.health -= attackers.attackPower;
-            attackers.stealResources(defendingVillage);
-        }
-        System.out.println();
-    }
-
-    Village villageGetter(int[] coord){
-        for(int i = 0; i < players.size(); i++){
-            Village tempVillage = players.get(i).homeVillage;
-            if(tempVillage.location == coord){
-                return tempVillage;
-            }
-        }
-        return null;
-    }
-
-    Army defendingArmy(Village village){
-        Army tempArmy = new Army(village.homeTroops, 0, village.location, village.location, true);
-        for(int i = 0; i <= village.homeTroops.size(); i++){
-            village.homeTroops.remove(0);
-        }
-        System.out.println(village.homeTroops.size());
-        return tempArmy;
-    }
-
-    boolean combatResult(Army attackingArmy, Army defendingArmy){
-        int damageCounterA = attackingArmy.attackPower;
-        int damageCounterB = defendingArmy.attackPower;
-
-        defendingArmy.armyCombat(damageCounterA);
-        defendingArmy.addStats();
-
-        attackingArmy.armyCombat(damageCounterB);
-        attackingArmy.addStats();
-
-        return(attackingArmy.armyMembers.size() == 0 ? true: false);
-    }
 
 
 

@@ -104,6 +104,59 @@ public class Army {
     }
 
 
+    void armiesCombat(ArrayList<Player> players){
+        Village defendingVillage = villageGetter(targetLocation, players);
+
+        if(defendingVillage.homeTroops.size() > 0){
+            Army defenceArmy = defendingArmy(defendingVillage);
+
+            boolean winCheck = combatResult(defenceArmy);
+            if(winCheck == true){
+                defendingVillage.depositArmyMembers(defenceArmy);
+            }else{
+                defendingVillage.health -= attackPower;
+                stealResources(defendingVillage);
+            }
+
+        }else{
+            defendingVillage.health -= attackPower;
+            stealResources(defendingVillage);
+        }
+        System.out.println();
+    }
+
+    Village villageGetter(int[] coord, ArrayList<Player> players){
+        for(int i = 0; i < players.size(); i++){
+            Village tempVillage = players.get(i).homeVillage;
+            if(tempVillage.location == coord){
+                return tempVillage;
+            }
+        }
+        return null;
+    }
+
+    Army defendingArmy(Village village){
+        Army tempArmy = new Army(village.homeTroops, 0, village.location, village.location, true);
+        for(int i = 0; i <= village.homeTroops.size(); i++){
+            village.homeTroops.remove(0);
+        }
+        System.out.println(village.homeTroops.size());
+        return tempArmy;
+    }
+
+    boolean combatResult(Army defendingArmy){
+        int damageCounterA = attackPower;
+        int damageCounterB = defendingArmy.attackPower;
+
+        defendingArmy.armyCombat(damageCounterA);
+        defendingArmy.addStats();
+
+        armyCombat(damageCounterB);
+        addStats();
+
+        return(armyMembers.size() == 0 ? true: false);
+    }
+
     void armyCombat(int damage){
         while(damage > 0){
             if(armyMembers.size() > 0){
@@ -119,7 +172,6 @@ public class Army {
             }
         }
     }
-
 
     void stealResources(Village village){
         for(int i = 0; i < resourceCC; i++){
