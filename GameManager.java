@@ -81,12 +81,13 @@ public class GameManager {
                 defendingVillage.depositArmyMembers(defenceArmy);
             }else{
                 System.out.println("Attackers win");
-
-                
+                defendingVillage.health -= attackers.attackPower;
+                attackers.stealResources(defendingVillage);
             }
 
         }else{
-            System.out.println("No defenders");
+            defendingVillage.health -= attackers.attackPower;
+            attackers.stealResources(defendingVillage);
         }
         System.out.println();
     }
@@ -122,8 +123,6 @@ public class GameManager {
 
         return(attackingArmy.armyMembers.size() == 0 ? true: false);
     }
-
-
 
 
 

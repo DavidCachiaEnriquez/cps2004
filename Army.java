@@ -86,13 +86,9 @@ public class Army {
 
 
     void addStats(){
-        // attackPower = 0; armyHealth = 0; resourceCC = 0; marchSpeed = 0;
-
         if(attackPower != 0){
-            attackPower = 0;
-            armyHealth = 0;
-            resourceCC = 0;
-            marchSpeed = 0;
+            attackPower = 0; armyHealth = 0;
+            resourceCC = 0; marchSpeed = 0;
         }
 
         for(int i = 0; i < armyMembers.size(); i++){
@@ -125,4 +121,42 @@ public class Army {
     }
 
 
+    void stealResources(Village village){
+        for(int i = 0; i < resourceCC; i++){
+            
+            ArrayList<Integer> validResources = new ArrayList<Integer>();
+
+            if(village.store.wood > 0){
+                validResources.add(0);
+            }
+            if(village.store.rations > 0){
+                validResources.add(1);
+            }
+            if(village.store.gold > 0){
+                validResources.add(2);
+            }
+            
+            if(validResources.size() > 0){
+                int randomNum = validResources.get((int)(Math.random() * validResources.size()));
+                
+                System.out.println(randomNum);
+                if(randomNum == 0){
+                    System.out.println("wood");
+                    resourceStore[randomNum]++;
+                    village.store.wood--;
+                }else if(randomNum == 1){
+                    System.out.println("rations");
+                    resourceStore[randomNum]++;
+                    village.store.rations--;
+                }else{
+                    System.out.println("gold");
+                    resourceStore[randomNum]++;
+                    village.store.gold--;
+                }
+            }else{
+                System.out.println("No resources left");
+                break;
+            }
+        }
+    }
 }

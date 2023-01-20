@@ -2,7 +2,7 @@ public class Resources {
     int wood; int rations; int gold;
 
     Resources(){
-        wood = 10; rations = 10; gold = 10;
+        wood = 5; rations = 5; gold = 5;
     }
 
     Resources(int type){
