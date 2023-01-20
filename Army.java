@@ -18,16 +18,26 @@ public class Army {
 
     Scanner sc = new Scanner(System.in);
 
-    Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc){
-        System.out.println("\nCreating army!");
-        if(homeTroops.size() != 0){
-            addTroops(homeTroops);
+    Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc, boolean defending){
+        if(defending == false){
+            System.out.println("\nCreating army!");
+            if(homeTroops.size() != 0){
+                addTroops(homeTroops);
+                addStats();
+                marchDistance = dist;
+                currentLocation = homeLoc;
+                targetLocation = targetLoc;
+            }else{
+                System.out.println("No troops trained yet...");
+            }
+        }else{
+            for(int i = 0; i < homeTroops.size(); i++){
+                armyMembers.add(homeTroops.get(i));
+            }
             addStats();
             marchDistance = dist;
             currentLocation = homeLoc;
             targetLocation = targetLoc;
-        }else{
-            System.out.println("No troops trained yet...");
         }
     }
 
@@ -76,7 +86,17 @@ public class Army {
 
 
     void addStats(){
+        // attackPower = 0; armyHealth = 0; resourceCC = 0; marchSpeed = 0;
+
+        if(attackPower != 0){
+            attackPower = 0;
+            armyHealth = 0;
+            resourceCC = 0;
+            marchSpeed = 0;
+        }
+
         for(int i = 0; i < armyMembers.size(); i++){
+            
             attackPower += armyMembers.get(i).power;
             armyHealth += armyMembers.get(i).health;
             resourceCC += armyMembers.get(i).cc;

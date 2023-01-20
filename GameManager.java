@@ -45,11 +45,13 @@ public class GameManager {
     }
 
 
+
     void turnController(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             players.get(i).demoMenuV2();
         }       
     }
+
 
 
     void armiesMarch(ArrayList<Player> players){
@@ -69,12 +71,14 @@ public class GameManager {
 
 
     void armiesCombat(Army attackers){
-        System.out.println("Combat");
-        System.out.println("Attackers: " + attackers.attackPower);
-
         Village defendingVillage = villageGetter(attackers.targetLocation);
+
         if(defendingVillage.homeTroops.size() > 0){
-            System.out.println("Defenders: ");
+            Army defenceArmy = defendingArmy(defendingVillage);
+
+            combatResult(attackers, defenceArmy);
+        }else{
+            System.out.println("No defenders");
         }
         System.out.println();
     }
@@ -89,6 +93,57 @@ public class GameManager {
         return null;
     }
 
+    Army defendingArmy(Village village){
+        Army tempArmy = new Army(village.homeTroops, 0, village.location, village.location, true);
+        for(int i = 0; i <= village.homeTroops.size()+1; i++){
+            village.homeTroops.remove(0);
+        }
+        System.out.println(village.homeTroops.size());
+        return tempArmy;
+    }
+
+    void combatResult(Army attackingArmy, Army defendingArmy){
+        int damageCounterA = attackingArmy.attackPower;
+        int damageCounterB = defendingArmy.attackPower;
+
+        while(damageCounterA > 0){
+            if(defendingArmy.armyMembers.size() > 0){
+                if(defendingArmy.armyMembers.get(0).health <= damageCounterA){
+                    damageCounterA -= defendingArmy.armyMembers.get(0).health;
+                    defendingArmy.armyMembers.remove(0);
+                }else{
+                    defendingArmy.armyMembers.get(0).health -= damageCounterA;
+                    damageCounterA -= damageCounterA;
+                }
+            }else{
+                break;
+            }
+        }
+        defendingArmy.addStats();
+
+        while(damageCounterB != 0){
+            if(attackingArmy.armyMembers.size() > 0){
+                if(attackingArmy.armyMembers.get(0).health <= damageCounterB){
+                    damageCounterB -= attackingArmy.armyMembers.get(0).health;
+                    attackingArmy.armyMembers.remove(0);
+                }else{
+                    attackingArmy.armyMembers.get(0).health -= damageCounterB;
+                    damageCounterB -= damageCounterB;
+                }
+            }else{
+                break;
+            }
+        }
+        attackingArmy.addStats();
+
+        if(defendingArmy.armyMembers.size() == 0 && attackingArmy.armyMembers.size() != 0){
+            System.out.println("\nAttackers Win");
+        }else{
+            System.out.println("\nDefenders Win");
+
+        }
+    }
+
 
     void deathCheck(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
@@ -97,6 +152,7 @@ public class GameManager {
             }
         }
     }
+
 
 
     boolean winCheck(ArrayList<Player> players){

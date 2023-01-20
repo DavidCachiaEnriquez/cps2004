@@ -356,7 +356,7 @@ public class Village {
         double dist = totalDistance(target.homeVillage.location);
         System.out.println("Distance: " + dist);
 
-        Army newArmy = new Army(homeTroops, dist, location, target.homeVillage.location);
+        Army newArmy = new Army(homeTroops, dist, location, target.homeVillage.location, false);
         armies.add(newArmy);
     }
 

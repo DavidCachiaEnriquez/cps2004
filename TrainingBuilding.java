@@ -14,15 +14,15 @@ public class TrainingBuilding {
         level = 1;
         if(type == 1){
             name = "Barracks"; troopName = "Soldier";
-            troopCost = 1; troopHealth = 5; troopPower = 5; 
-            troopCc = 3; troopSpeed = 2;
+            troopCost = 1; troopHealth = 3; troopPower = 3; 
+            troopCc = 3; troopSpeed = 3;
         }else if(type == 2){
             name = "Stables"; troopName = "Cavalier";
-            troopCost = 2; troopHealth = 5; troopPower = 3; 
-            troopCc = 5; troopSpeed = 5;
+            troopCost = 2; troopHealth = 3; troopPower = 1; 
+            troopCc = 5; troopSpeed = 7;
         }else if(type == 3){
             name = "Gym"; troopName = "Giant";
-            troopCost = 5; troopHealth = 10; troopPower = 7; 
+            troopCost = 5; troopHealth = 7; troopPower = 7; 
             troopCc = 7; troopSpeed = 1;
         }
     }
