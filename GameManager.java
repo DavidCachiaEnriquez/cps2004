@@ -60,6 +60,7 @@ public class GameManager {
 
             for(int j = 0; j < armies.size(); j++){
                 Army currArmy = armies.get(j);
+                currArmy.armyCleaner(armies, j);
                 currArmy.armyMarch(players);
             }
         }

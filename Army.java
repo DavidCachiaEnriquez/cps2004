@@ -13,6 +13,7 @@ public class Army {
     int resourceCC = 0;
     int resourceStore[] = {0, 0, 0}; 
 
+    int[] homeLocation;
     int[] currentLocation;
     int[] targetLocation;
 
@@ -20,6 +21,7 @@ public class Army {
 
     // Constructor
     Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc, boolean defending){
+        homeLocation = homeLoc;
         if(defending == false){
             System.out.println("\nCreating army!");
             if(homeTroops.size() != 0){
@@ -109,10 +111,23 @@ public class Army {
     }
 
 
+    // To remove unneeded armies
+    void armyCleaner(ArrayList<Army> armies, int pos){
+        if(armyMembers.size() <= 0){
+            armies.remove(pos);
+        }
+    }
+
     // Function to make army march
     void armyMarch(ArrayList<Player> players){
         if(marchSpeed > marchDistance){
-            armiesCombat(players);
+            if(targetLocation != homeLocation){
+                System.out.println("Attacking village");
+                armiesCombat(players);
+            }else{
+                System.out.println("Returned home");
+                returnHome(players);
+            }
         }else{
             marchDistance -= marchSpeed;
         }
@@ -131,11 +146,13 @@ public class Army {
             }else{
                 defendingVillage.health -= attackPower;
                 stealResources(defendingVillage);
+                marchBack();
             }
 
         }else{
             defendingVillage.health -= attackPower;
             stealResources(defendingVillage);
+            marchBack();
         }
         System.out.println();
     }
@@ -215,6 +232,44 @@ public class Army {
                 System.out.println("No resources left");
                 break;
             }
+        }
+    }
+
+    // Function to change target and march back to home
+    void marchBack(){
+        int[] temp = currentLocation;
+        currentLocation = targetLocation;
+        targetLocation = temp;
+    }
+
+    // Function to control what happens when army gets home
+    void returnHome(ArrayList<Player> players){
+        Village homeVillage = null;
+        for(int i = 0; i <players.size(); i++){
+            if(players.get(i).homeVillage.location == homeLocation){
+                homeVillage = players.get(i).homeVillage;
+            }
+        }
+        depositResources(homeVillage);
+        dissolveArmy(homeVillage);
+    }
+
+    // Function to deposit resources at village store
+    void depositResources(Village homeVillage){
+        homeVillage.store.wood += resourceStore[0];
+        homeVillage.store.rations += resourceStore[1];
+        homeVillage.store.gold += resourceStore[2];
+
+        resourceStore[0] = 0;
+        resourceStore[1] = 0;
+        resourceStore[2] = 0;
+    }
+
+    // Function to add army members back to village troop pool
+    void dissolveArmy(Village homeVillage){
+        for(int i = 0; i < armyMembers.size(); i++){
+            homeVillage.homeTroops.add(armyMembers.get(0));
+            armyMembers.remove(0);
         }
     }
 }
