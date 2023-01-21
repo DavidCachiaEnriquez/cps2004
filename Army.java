@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Army {
     ArrayList<Troops> armyMembers = new ArrayList<Troops>();
@@ -16,6 +17,7 @@ public class Army {
     int[] currentLocation;
     int[] targetLocation;
 
+    Scanner sc = new Scanner(System.in);
     Validation validator = new Validation();
 
     // Constructor
@@ -60,8 +62,14 @@ public class Army {
         int num = troopPoolSize(homeTroops, name);
         if(num != 0){
             System.out.print("Number of " + name + "s (" + num + "): ");
-            int numS = validator.rangedInput(0, num);
-            addTroop(homeTroops, numS, name);
+            int numT = sc.nextInt();
+            while(numT < 0 || numT > num){
+                System.out.print("Invalid input, try again: ");
+                numT = sc.nextInt();
+            }
+            
+            System.out.println(numT);
+            addTroop(homeTroops, numT, name);
         }
     }
 
@@ -117,10 +125,12 @@ public class Army {
         }
     }
 
+
     // Function to make army march
     void armyMarch(ArrayList<Player> players){
         if(marchSpeed > marchDistance){
             if(targetLocation != homeLocation){
+                System.out.println("Hello");
                 armiesCombat(players);
             }else if(targetLocation == homeLocation){
                 returnHome(players);

@@ -128,23 +128,4 @@ public class Player {
             sc.next();
         }
     }
-
-    // Combat actions menu
-    void combatMenu(){
-        System.out.println("Combat Menu");
-        System.out.println(" 1. Attack Village");
-        System.out.println(" 2. Cancel");
-
-        System.out.print("\nMenu Selection: ");
-        int menu = validator.rangedInput(1, 2);
-
-        System.out.print("\033[H\033[2J");  
-        switch(menu){
-            case 1: homeVillage.attackVillage(players, worldMap); break;
-        }
-
-        if(menu != 2){
-            
-        }
-    }
 }
