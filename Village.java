@@ -40,7 +40,7 @@ public class Village {
         return(coord);
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     
     void villageDetails(){
         System.out.println("- - Village Details - -");
