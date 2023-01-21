@@ -381,7 +381,6 @@ public class Village {
     }
 
 
-
     Army defendingArmy(){
         Army tempArmy = new Army(homeTroops, 0, location, location, true);
         for(int i = 0; i <= homeTroops.size(); i++){
@@ -391,11 +390,7 @@ public class Village {
         return tempArmy;
     }
 
-
-
-
-
-
+    
     void gameSurrender(){
         health = 0;
     }
