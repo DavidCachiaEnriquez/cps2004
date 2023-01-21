@@ -3,15 +3,15 @@ import java.util.Scanner;
 
 public class GameManager {
 
-    int mapSize = 10;
-    Map map = new Map(mapSize);
+    private int mapSize = 10;
+    private Map map = new Map(mapSize);
 
-    ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Player> players = new ArrayList<Player>();
 
-    int turnCounter = 1;
+    private int turnCounter = 1;
 
     private Scanner sc = new Scanner(System.in);
-    Validation validator = new Validation();
+    private Validation validator = new Validation();
 
     // Constructor
     GameManager(){
@@ -21,7 +21,7 @@ public class GameManager {
 
         
         for(int i = 0; i < playerNum; i++){
-            playerAdder(map, players);
+            players.add(new Player(map, players));
         }
 
         boolean winFlag = true;
@@ -41,12 +41,6 @@ public class GameManager {
             }
         }
 
-    }
-
-    // Function to add new player
-    void playerAdder(Map map, ArrayList<Player> players){
-        Player playerTemp = new Player(map, players);
-        players.add(playerTemp);
     }
 
     // Function to control turn actions

@@ -2,8 +2,8 @@ import java.lang.Math;
 import java.util.ArrayList;
 
 public class Village {
-    String ownerName;
-    String villageMarker;
+    private String ownerName;
+    private String villageMarker;
     int health;
     int[] location;
 
@@ -12,11 +12,12 @@ public class Village {
     ArrayList<Troops> homeTroops = new ArrayList<Troops>();
     ArrayList<Army> armies = new ArrayList<Army>();
 
-    ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
-    ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
+    private ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
+    private ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
 
-    Validation validator = new Validation();
+    private Validation validator = new Validation();
 
+    // Constructor
     Village(String name, String marker, Map map){
         ownerName = name;
         health = 20;
@@ -27,6 +28,7 @@ public class Village {
         map.addVillage(coord, marker);
     }
 
+    // Function to get random location for village
     int[] locationSetter(int size, Map map){
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
@@ -40,8 +42,7 @@ public class Village {
         return(coord);
     }
 
-
-    
+    // Function to print the details of the village
     void villageDetails(){
         System.out.println("- - Village Details - -");
         System.out.println(" Village owner:    " + ownerName);
@@ -53,8 +54,7 @@ public class Village {
         store.printContent();
     }
 
-
-    
+    // Function to build building
     void buildBuilding(){        
         System.out.println("Types of Buildings: ");
         System.out.println(" 1. Troop Training");
@@ -139,6 +139,7 @@ public class Village {
         }
     }    
 
+    // Function to check if training building exists already
     boolean existCheckerT(ArrayList<TrainingBuilding> building, String name){
         for(int i = 0; i < building.size(); i++){
             if(building.get(i).troopName == name){
@@ -148,6 +149,7 @@ public class Village {
         return(false);
     }
 
+    // Function to check if resource building exists already
     boolean existCheckerR(ArrayList<ResourceBuilding> building, String name){
         for(int i = 0; i < building.size(); i++){
             if(building.get(i).name == name){
@@ -157,8 +159,7 @@ public class Village {
         return(false);
     }
 
-
-
+    // Function to upgrade building
     void upgradeBuilding(){
         System.out.println("Choose building type:");
         System.out.println(" 1. Troop Buildings");
@@ -183,6 +184,7 @@ public class Village {
         }
     }
 
+    // Function to upgrade training buildings
     void upgradeTroops(){
         if(trainingBuildings.size() > 0){
             for(int i = 0; i<trainingBuildings.size();i++){
@@ -200,6 +202,7 @@ public class Village {
         }
     }
 
+    // Function to upgrade resource buildings
     void upgradeResources(){
         if(resourceBuildings.size() > 0){
             for(int i = 0; i<resourceBuildings.size();i++){
@@ -217,13 +220,13 @@ public class Village {
         }
     }
 
-
-
+    // Function to display details of buildings
     void displayBuildings(){
         displayTBuilds();
         displayRBuilds();
     }
 
+    // Function to display details of training buildings
     void displayTBuilds(){
         if(trainingBuildings.size() != 0){
             System.out.println("Troop Buildings: ");
@@ -235,6 +238,7 @@ public class Village {
         }
     }
 
+    // Function to display details of resource buildings
     void displayRBuilds(){
         if(resourceBuildings.size() != 0){
             System.out.println("\nResources Buildings");
@@ -246,34 +250,23 @@ public class Village {
         }
     }
 
-
-
+    // Function to train a troop
     void trainTroop(){
         displayTBuilds();
         if(trainingBuildings.size() != 0){
             System.out.print("\nMenu selection: ");
             int choice = validator.rangedInput(1, trainingBuildings.size())-1;
 
-            int cost = trainingBuildings.get(choice).troopCost;
-
-            if(cost <= store.rations){
-                trainingBuildings.get(choice).createTroop(store, homeTroops);
-            }else{
-                System.out.println("Not enough rations...");
-            }
+            TrainingBuilding trainer = trainingBuildings.get(choice);
+            trainer.checkRations(store, homeTroops);
         }
     }
 
-
-
+    // Function to display trained troops in home pool
     void displayVillageTroops(){
         System.out.println("Village Troops:");
-        displayTroops(homeTroops);
-    }
-
-    void displayTroops(ArrayList<Troops> troops){
-        if(troops.size() != 0){
-            int[] troopArray = countNumberOfTroops(troops);
+        if(homeTroops.size() != 0){
+            int[] troopArray = countNumberOfTroops(homeTroops);
 
             System.out.print((troopArray[0] != 0) ? " Soldiers: " + troopArray[0] : "");
             System.out.print((troopArray[1] != 0) ? "\n Cavaliers: " + troopArray[1] : "");
@@ -283,6 +276,7 @@ public class Village {
         }
     }
 
+    // Function to count number of specific troops
     int[] countNumberOfTroops(ArrayList<Troops> villageTroops){
         int[] troopArray = new int[3];
 
@@ -300,7 +294,7 @@ public class Village {
     }
 
 
-
+    // Function to send an attack from home village
     void attackVillage(ArrayList<Player> players, Map map){
         System.out.println("Attacking Village!");
         
@@ -319,6 +313,7 @@ public class Village {
         System.out.print("\nC to Continue: ");
     }
 
+    // Function to give list of players, excluding the current player
     ArrayList<Player> listWithoutUser(ArrayList<Player> players){
         ArrayList<Player> tempList = new ArrayList<Player>();
         for(int i = 0; i < players.size(); i++){
@@ -329,6 +324,7 @@ public class Village {
         return tempList;
     }
 
+    // Function to return target for attack
     Player chooseTarget(ArrayList<Player> choices){
         System.out.println("\nChoose Target");
         for(int i  = 0; i <choices.size(); i++){
@@ -341,12 +337,14 @@ public class Village {
         return choices.get(i);
     }
 
+    // Function to print reduced village details
     void reducedVillageDetails(){
         System.out.println("\nVillage owner:    " + ownerName);
         System.out.println("Village symbol:   " + villageMarker);
         System.out.println("Location:         (" + location[1] + ", " + location[0] + ")");
     }
 
+    // Function to calculate the total distance to travel
     double totalDistance(int[] tLocation){
         int x1 = location[1]; int y1 = location[0];
         int x2 = tLocation[1]; int y2 = tLocation[0];
@@ -354,11 +352,17 @@ public class Village {
         return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
     }
  
-    void pass(){
-        updateResources();
-        updateArmies();
+    // Function to surrender
+    void gameSurrender(){
+        health = 0;
     }
 
+    // Function to control actions on pass
+    void pass(){
+        updateResources();
+    }
+
+    // Function to update villages resources
     void updateResources(){
         for(int i = 0; i < resourceBuildings.size(); i++){
             ResourceBuilding building = resourceBuildings.get(i);
@@ -367,31 +371,19 @@ public class Village {
         }
     }
 
-    void updateArmies(){
-        for(int i = 0; i < armies.size(); i++){
-            System.out.println(armies.get(i).armyMembers.size());
-        }
-    }
-
-
+    // Function to move army members back to home troop pool
     void depositArmyMembers(Army army){
         for(int i = 0; i < army.armyMembers.size(); i++){
             homeTroops.add(army.armyMembers.get(i));
         }
     }
 
-
+    // Function to create defending army from home troop pool
     Army defendingArmy(){
         Army tempArmy = new Army(homeTroops, 0, location, location, true);
         for(int i = 0; i <= homeTroops.size(); i++){
             homeTroops.remove(0);
         }
-        System.out.println(homeTroops.size());
         return tempArmy;
-    }
-
-    
-    void gameSurrender(){
-        health = 0;
     }
 }

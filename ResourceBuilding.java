@@ -1,7 +1,7 @@
 public class ResourceBuilding {
     String name;
     int level;
-    Resources resourceType;
+    private Resources resourceType;
     
     // Constructor
     ResourceBuilding(int type){
@@ -57,8 +57,8 @@ public class ResourceBuilding {
         }
     }
 
+    // Function to display details of the building
     void displayDetails(int i){
         System.out.print(" " + (i+1) + ". " + name + " - lvl." + level);
     }
-
 }

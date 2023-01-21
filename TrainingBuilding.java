@@ -5,10 +5,10 @@ public class TrainingBuilding {
 
     String troopName;
     int troopCost;
-    int troopHealth;
-    int troopPower;
-    int troopCc;
-    int troopSpeed;
+    private int troopHealth;
+    private int troopPower;
+    private int troopCc;
+    private int troopSpeed;
 
     int level;
     
@@ -30,6 +30,26 @@ public class TrainingBuilding {
         }
     }
 
+    // Function to checks if enough rations are available
+    void checkRations(Resources store, ArrayList<Troops> homeTroops){
+        int cost = troopCost;
+
+        if(cost <= store.rations){
+            createTroop(store, homeTroops);
+        }else{
+            System.out.println("Not enough rations...");
+        }
+    }
+
+    // Functiont to train a new troop
+    void createTroop(Resources store, ArrayList<Troops> homeTroops){
+        store.rations -= troopCost;
+        for(int i = 0; i < level; i++){
+            Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
+            homeTroops.add(newTroop);
+        }
+    }
+
     // Function to upgrade building
     void upgradeTrainingBuilding(Resources store){
         int upgradeCost = level;
@@ -42,15 +62,12 @@ public class TrainingBuilding {
             }
     }
 
+    // Function to display details of the building
     void displayDetails(int i){
         System.out.print(" " + (i+1) + ". " + name + " - lvl." + level);
     }
 
-    void createTroop(Resources store, ArrayList<Troops> homeTroops){
-        store.rations -= troopCost;
-        for(int i = 0; i < level; i++){
-            Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
-            homeTroops.add(newTroop);
-        }
-    }
+    
+
+
 }

@@ -6,11 +6,11 @@ public class Player {
     String villageMarker;  
     Village homeVillage;    
 
-    Map worldMap;     
-    ArrayList<Player> players;     
+    private Map worldMap;     
+    private ArrayList<Player> players;     
 
     private Scanner sc = new Scanner(System.in);
-    Validation validator = new Validation();
+    private Validation validator = new Validation();
 
     // Constructor
     Player(Map map, ArrayList<Player> allPlayers){

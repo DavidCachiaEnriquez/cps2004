@@ -1,6 +1,6 @@
 public class Map {
     int rows;
-    int columns;
+    private int columns;
     String[][] grid;
 
     // Constructor
@@ -16,11 +16,12 @@ public class Map {
         }
     }
 
-    // Function to remove village
+    // Function to add village marker
     void addVillage(int[] coord, String maker){
         grid[coord[0]][coord[1]] = maker;
     }
 
+    // Function to remove village marker 
     void removeVillageFromMap(String marker){
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < columns; j++){
@@ -30,7 +31,6 @@ public class Map {
             }
         }
     }
-
 
     // Function to draw map
     void drawMap(){

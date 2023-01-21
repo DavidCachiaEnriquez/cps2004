@@ -4,21 +4,19 @@ import java.util.Scanner;
 public class Army {
     ArrayList<Troops> armyMembers = new ArrayList<Troops>();
 
-    int attackPower = 0;
-    int armyHealth = 0;
+    private int attackPower = 0;
 
-    int marchSpeed = 100;
-    double marchDistance = 0;
+    private int marchSpeed = 100;
+    private double marchDistance = 0;
 
-    int resourceCC = 0;
-    int resourceStore[] = {0, 0, 0}; 
+    private int resourceCC = 0;
+    private int resourceStore[] = {0, 0, 0}; 
 
-    int[] homeLocation;
-    int[] currentLocation;
-    int[] targetLocation;
+    private int[] homeLocation;
+    private int[] currentLocation;
+    private int[] targetLocation;
 
-    Scanner sc = new Scanner(System.in);
-    Validation validator = new Validation();
+    private Scanner sc = new Scanner(System.in);
 
     // Constructor
     Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc, boolean defending){
@@ -45,7 +43,7 @@ public class Army {
         }
     }
 
-    // Function to go through different troops types
+    // Function to go through different troops types 
     void typesOfTroops(ArrayList<Troops> homeTroops){
         String name = "Soldier";
         numOfTroops(homeTroops, name);
@@ -57,7 +55,7 @@ public class Army {
         numOfTroops(homeTroops, name);
     }
 
-    // Function to take number of troop to add
+    // Function to take number of troop to add 
     void numOfTroops(ArrayList<Troops> homeTroops, String name){
         int num = troopPoolSize(homeTroops, name);
         if(num != 0){
@@ -68,7 +66,6 @@ public class Army {
                 numT = sc.nextInt();
             }
             
-            System.out.println(numT);
             addTroop(homeTroops, numT, name);
         }
     }
@@ -83,7 +80,7 @@ public class Army {
         }
         return num;
     }
-
+    
     // Function to transfer troop from pool to army
     void addTroop(ArrayList<Troops> homeTroops, int num, String name){
         for(int i = 0; i < homeTroops.size(); i++){
@@ -101,14 +98,12 @@ public class Army {
     // Function to create army stats
     void addStats(){
         if(attackPower != 0){
-            attackPower = 0; armyHealth = 0;
             resourceCC = 0; marchSpeed = 0;
         }
 
         for(int i = 0; i < armyMembers.size(); i++){
             
             attackPower += armyMembers.get(i).power;
-            armyHealth += armyMembers.get(i).health;
             resourceCC += armyMembers.get(i).cc;
             
             if(armyMembers.get(i).speed < marchSpeed){
@@ -117,7 +112,6 @@ public class Army {
         }
     }
 
-
     // To remove unneeded armies
     void armyCleaner(ArrayList<Army> armies, int pos){
         if(armyMembers.size() <= 0){
@@ -125,12 +119,10 @@ public class Army {
         }
     }
 
-
     // Function to make army march
     void armyMarch(ArrayList<Player> players){
         if(marchSpeed > marchDistance){
             if(targetLocation != homeLocation){
-                System.out.println("Hello");
                 armiesCombat(players);
             }else if(targetLocation == homeLocation){
                 returnHome(players);
@@ -161,7 +153,6 @@ public class Army {
                 stealResources(defendingVillage);
                 marchBack();
             }
-            System.out.println();
         }
     }
 
