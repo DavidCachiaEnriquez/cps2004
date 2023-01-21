@@ -25,6 +25,17 @@ public class Map {
         grid[coord[0]][coord[1]] = maker;
     }
 
+    void removeVillageFromMap(String marker){
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++){
+                if(grid[i][j] == marker){
+                    grid[i][j] = "-";
+                }
+            }
+        }
+    }
+
+
     // Function to draw map
     void drawMap(){
         System.out.println("     - - - Board Map - - - ");

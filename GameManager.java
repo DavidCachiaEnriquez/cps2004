@@ -60,8 +60,8 @@ public class GameManager {
 
             for(int j = 0; j < armies.size(); j++){
                 Army currArmy = armies.get(j);
-                currArmy.armyCleaner(armies, j);
                 currArmy.armyMarch(players);
+                currArmy.armyCleaner(armies, j);
             }
         }
     }
@@ -70,6 +70,7 @@ public class GameManager {
     void deathCheck(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             if(players.get(i).homeVillage.health <= 0){
+                map.removeVillageFromMap(players.get(i).villageMarker);
                 players.remove(i);
             }
         }

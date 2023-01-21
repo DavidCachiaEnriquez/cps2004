@@ -122,10 +122,8 @@ public class Army {
     void armyMarch(ArrayList<Player> players){
         if(marchSpeed > marchDistance){
             if(targetLocation != homeLocation){
-                System.out.println("Attacking village");
                 armiesCombat(players);
-            }else{
-                System.out.println("Returned home");
+            }else if(targetLocation == homeLocation){
                 returnHome(players);
             }
         }else{
