@@ -11,11 +11,12 @@ public class GameManager {
     int turnCounter = 1;
 
     private Scanner sc = new Scanner(System.in);
+    Validation validator = new Validation();
 
     // Constructor
     GameManager(){
         System.out.print("Enter number of players: ");
-        int playerNum = sc.nextInt();
+        int playerNum = validator.playerNumberInput();
         System.out.println();
 
         

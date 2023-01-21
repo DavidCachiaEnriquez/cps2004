@@ -40,7 +40,7 @@ public class Player {
             System.out.println(" 5. Pass");
 
             System.out.print("\nMenu Selection: ");
-            menu = sc.nextInt();
+            menu = validator.rangedInput(1, 5);
 
             if(menu == 6){
                 System.out.println("\nExiting...");
@@ -62,10 +62,10 @@ public class Player {
         System.out.println("General Menu");
         System.out.println(" 1. Village Details");
         System.out.println(" 2. Display Map");
-        System.out.println(" 3. Exit");
+        System.out.println(" 3. Cancel");
 
         System.out.print("\nMenu Selection: ");
-        int menu = sc.nextInt();
+        int menu = validator.rangedInput(1, 3);
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
@@ -85,10 +85,10 @@ public class Player {
         System.out.println(" 1. Build Building");
         System.out.println(" 2. Upgrade Building");
         System.out.println(" 3. Buildings Details");
-        System.out.println(" 4. Exit");
+        System.out.println(" 4. Cancel");
 
         System.out.print("\nMenu Selection: ");
-        int menu = sc.nextInt();
+        int menu = validator.rangedInput(1, 4);
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
@@ -108,9 +108,10 @@ public class Player {
         System.out.println("Troop Menu");
         System.out.println(" 1. Train Troops");
         System.out.println(" 2. Troop Details");
+        System.out.println(" 3. Cancel");
 
         System.out.print("\nMenu Selection: ");
-        int menu = sc.nextInt();
+        int menu = validator.rangedInput(1, 3);
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
@@ -132,7 +133,7 @@ public class Player {
         System.out.println(" 3. Exit");
 
         System.out.print("\nMenu Selection: ");
-        int menu = sc.nextInt();
+        int menu = validator.rangedInput(1, 3);
 
         System.out.print("\033[H\033[2J");  
         switch(menu){

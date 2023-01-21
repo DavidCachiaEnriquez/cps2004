@@ -1,6 +1,5 @@
 import java.lang.Math;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Village {
     String ownerName;
@@ -16,7 +15,7 @@ public class Village {
     ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
     ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
 
-    private Scanner sc = new Scanner(System.in);
+    Validation validator = new Validation();
 
     Village(String name, String marker, Map map){
         ownerName = name;
@@ -63,7 +62,7 @@ public class Village {
         System.out.println(" 3. Cancel");
 
         System.out.print("\nMenu selection: ");
-        int choice = sc.nextInt();
+        int choice = validator.rangedInput(1, 3);
 
         if(store.wood > 0){
 
@@ -76,7 +75,7 @@ public class Village {
                 System.out.println(" 4. Cancel");
                 
                 System.out.print("\nMenu selection: ");
-                int type = sc.nextInt();
+                int type = validator.rangedInput(1, 4);
                 
                 if(type != 4){
                     boolean flag = false;
@@ -108,7 +107,7 @@ public class Village {
                 System.out.println(" 4. Cancel");
 
                 System.out.print("\nMenu selection: ");
-                int type = sc.nextInt();
+                int type = validator.rangedInput(1, 4);
 
                 if(type != 4){
                     boolean flag = false;
@@ -166,7 +165,7 @@ public class Village {
         System.out.println(" 3. Cancel");
 
         System.out.print("\nMenu selection: ");
-        int choice = sc.nextInt();
+        int choice = validator.rangedInput(1, 3);
 
         switch(choice){
             case 1:
@@ -191,7 +190,7 @@ public class Village {
                 System.out.println(" - cost in gold: " + trainingBuildings.get(i).level);
             }
             System.out.print("\nChoose building to upgrade: ");
-            int building = sc.nextInt();
+            int building = validator.rangedInput(1, trainingBuildings.size());
 
             TrainingBuilding upgradeBuilding = trainingBuildings.get(building-1);
             upgradeBuilding.upgradeTrainingBuilding(store);
@@ -208,7 +207,7 @@ public class Village {
                 System.out.println(" - cost in gold: " + resourceBuildings.get(i).level);
             }
             System.out.print("Choose building to upgrade: ");
-            int building = sc.nextInt();
+            int building = validator.rangedInput(1, trainingBuildings.size());
 
             ResourceBuilding upgradeBuilding = resourceBuildings.get(building-1);
             upgradeBuilding.upgradeTrainingBuilding(store);
@@ -252,7 +251,7 @@ public class Village {
         displayTBuilds();
 
         System.out.print("\nMenu selection: ");
-        int choice = sc.nextInt()-1;
+        int choice = validator.rangedInput(1, trainingBuildings.size())-1;
 
         int cost = trainingBuildings.get(choice).troopCost;
 
@@ -334,7 +333,7 @@ public class Village {
         }
 
         System.out.print("\nTarget number: ");
-        int i = sc.nextInt()-1;
+        int i = validator.rangedInput(1, choices.size())-1;
 
         return choices.get(i);
     }

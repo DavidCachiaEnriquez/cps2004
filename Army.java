@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Army {
     ArrayList<Troops> armyMembers = new ArrayList<Troops>();
@@ -17,7 +16,7 @@ public class Army {
     int[] currentLocation;
     int[] targetLocation;
 
-    private Scanner sc = new Scanner(System.in);
+    Validation validator = new Validation();
 
     // Constructor
     Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc, boolean defending){
@@ -61,7 +60,7 @@ public class Army {
         int num = troopPoolSize(homeTroops, name);
         if(num != 0){
             System.out.print("Number of " + name + "s (" + num + "): ");
-            int numS = sc.nextInt();
+            int numS = validator.rangedInput(0, num);
             addTroop(homeTroops, numS, name);
         }
     }
