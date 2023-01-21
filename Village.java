@@ -184,9 +184,6 @@ public class Village {
     }
 
     void upgradeTroops(){
-        int building;
-        int upgradeCost;
-
         if(trainingBuildings.size() > 0){
             for(int i = 0; i<trainingBuildings.size();i++){
                 System.out.print(" " + (i+1) + ". "  + trainingBuildings.get(i).name);
@@ -194,25 +191,16 @@ public class Village {
                 System.out.println(" - cost in gold: " + trainingBuildings.get(i).level);
             }
             System.out.print("\nChoose building to upgrade: ");
-            building = sc.nextInt();
+            int building = sc.nextInt();
 
-            upgradeCost = trainingBuildings.get(building-1).level;
-            if(store.gold >= upgradeCost){
-                store.gold -= upgradeCost;
-                trainingBuildings.get(building-1).level += 1;
-                System.out.println("Upgraded!");
-            }else{
-                System.out.println("Not enough gold...");
-            }
+            TrainingBuilding upgradeBuilding = trainingBuildings.get(building-1);
+            upgradeBuilding.upgradeTrainingBuilding(store);
         }else{
             System.out.println(" No troop buildings yet...");
         }
     }
 
     void upgradeResources(){
-        int building;
-        int upgradeCost;
-
         if(resourceBuildings.size() > 0){
             for(int i = 0; i<resourceBuildings.size();i++){
                 System.out.print(" " + (i+1) + ". "  + resourceBuildings.get(i).name);
@@ -220,17 +208,10 @@ public class Village {
                 System.out.println(" - cost in gold: " + resourceBuildings.get(i).level);
             }
             System.out.print("Choose building to upgrade: ");
-            building = sc.nextInt();
+            int building = sc.nextInt();
 
-            upgradeCost = resourceBuildings.get(building-1).level;
-            if(store.gold >= upgradeCost){
-
-                store.gold -= upgradeCost;
-                resourceBuildings.get(building-1).level += 1;
-                System.out.println("Upgraded!");
-            }else{
-                System.out.println("Not enough gold...");
-            }
+            ResourceBuilding upgradeBuilding = resourceBuildings.get(building-1);
+            upgradeBuilding.upgradeTrainingBuilding(store);
         }else{
             System.out.println(" No resource buildings yet...");
         }
@@ -240,19 +221,15 @@ public class Village {
 
     void displayBuildings(){
         displayTBuilds();
-
         displayRBuilds();
     }
 
     void displayTBuilds(){
         if(trainingBuildings.size() != 0){
             System.out.println("Troop Buildings: ");
-
             for(int i = 0; i<trainingBuildings.size();i++){
-                System.out.print(" " + (i+1) + ". " + trainingBuildings.get(i).name);
-                System.out.println(" - lvl." + trainingBuildings.get(i).level);
+                trainingBuildings.get(i).displayDetails(i);
             }
-
         }else{
             System.out.println(" No troop buildings yet...");
         }
@@ -261,12 +238,9 @@ public class Village {
     void displayRBuilds(){
         if(resourceBuildings.size() != 0){
             System.out.println("\nResources Buildings");
-
             for(int i = 0; i<resourceBuildings.size();i++){
-                System.out.print(" " + (i+1) + ". " + resourceBuildings.get(i).name);
-                System.out.println(" - lvl." + resourceBuildings.get(i).level);
+                resourceBuildings.get(i).displayDetails(i);
             }
-
         }else{
             System.out.println("\n No resource buildings yet...");
         }
@@ -283,40 +257,23 @@ public class Village {
         int cost = trainingBuildings.get(choice).troopCost;
 
         if(cost <= store.rations){
-            createTroop(cost, choice);
+            trainingBuildings.get(choice).createTroop(store, homeTroops);
         }else{
             System.out.println("Not enough rations...");
         }
 
     }
 
-    void createTroop(int cost, int choice){
-        store.rations -= cost;
-        for(int i = 0; i < trainingBuildings.get(choice).level; i++){
-            TrainingBuilding trainer = trainingBuildings.get(choice);
-
-            String troopName = trainer.troopName;
-            int troopHealth = trainer.troopHealth;
-            int troopPower = trainer.troopPower;
-            int troopCc = trainer.troopCc;
-            int troopSpeed = trainer.troopSpeed;
-
-            Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
-            homeTroops.add(newTroop);
-        }
-    }
-
 
 
     void displayVillageTroops(){
-        ArrayList<Troops> villageTroops = homeTroops;
         System.out.println("Village Troops:");
-        displayTroops(villageTroops);
+        displayTroops(homeTroops);
     }
 
     void displayTroops(ArrayList<Troops> troops){
-        if(homeTroops.size() != 0){
-            int[] troopArray = countNumberOfTroops(homeTroops);
+        if(troops.size() != 0){
+            int[] troopArray = countNumberOfTroops(troops);
 
             System.out.print((troopArray[0] != 0) ? " Soldiers: " + troopArray[0] : "");
             System.out.print((troopArray[1] != 0) ? "\n Cavaliers: " + troopArray[1] : "");
@@ -400,14 +357,7 @@ public class Village {
     void displayArmies(){
     }
 
-
-
-    void gameSurrender(){
-        health = 0;
-    }
-
-
-
+    
     void pass(){
         updateResources();
         updateArmies();
@@ -436,4 +386,21 @@ public class Village {
 
 
 
+    Army defendingArmy(){
+        Army tempArmy = new Army(homeTroops, 0, location, location, true);
+        for(int i = 0; i <= homeTroops.size(); i++){
+            homeTroops.remove(0);
+        }
+        System.out.println(homeTroops.size());
+        return tempArmy;
+    }
+
+
+
+
+
+
+    void gameSurrender(){
+        health = 0;
+    }
 }

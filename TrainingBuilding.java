@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class TrainingBuilding { 
     String name;
 
@@ -10,6 +12,7 @@ public class TrainingBuilding {
 
     int level;
     
+    // Constructor
     TrainingBuilding(int type){
         level = 1;
         if(type == 1){
@@ -27,4 +30,27 @@ public class TrainingBuilding {
         }
     }
 
+    // Function to upgrade building
+    void upgradeTrainingBuilding(Resources store){
+        int upgradeCost = level;
+            if(store.gold >= upgradeCost){
+                store.gold -= upgradeCost;
+                level += 1;
+                System.out.println("Upgraded!");
+            }else{
+                System.out.println("Not enough gold...");
+            }
+    }
+
+    void displayDetails(int i){
+        System.out.print(" " + (i+1) + ". " + name + " - lvl." + level);
+    }
+
+    void createTroop(Resources store, ArrayList<Troops> homeTroops){
+        store.rations -= troopCost;
+        for(int i = 0; i < level; i++){
+            Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
+            homeTroops.add(newTroop);
+        }
+    }
 }

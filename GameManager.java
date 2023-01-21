@@ -12,6 +12,7 @@ public class GameManager {
 
     Scanner sc = new Scanner(System.in);
 
+    // Constructor
     GameManager(){
         System.out.print("Enter number of players: ");
         int playerNum = sc.nextInt();
@@ -26,7 +27,7 @@ public class GameManager {
         while(winFlag != false){
             turnController(players);
 
-            armiesMarch(players);
+            armiesActions(players);
 
             deathCheck(players);
             winFlag = winCheck(players);
@@ -39,41 +40,32 @@ public class GameManager {
 
     }
 
+    // Function to add new player
     void playerAdder(Map map, ArrayList<Player> players){
         Player playerTemp = new Player(map, players);
         players.add(playerTemp);
     }
 
-
-
+    // Function to control turn actions
     void turnController(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             players.get(i).demoMenuV2();
         }       
     }
 
-
-
-    void armiesMarch(ArrayList<Player> players){
+    // Functions to manage armies actions
+    void armiesActions(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             ArrayList<Army> armies = players.get(i).homeVillage.armies;
 
             for(int j = 0; j < armies.size(); j++){
                 Army currArmy = armies.get(j);
-                if(currArmy.marchSpeed > currArmy.marchDistance){
-                    currArmy.armiesCombat(players);
-                    System.out.println(currArmy.resourceStore[0]);
-                }else{
-                    currArmy.marchDistance -= currArmy.marchSpeed;
-                }
+                currArmy.armyMarch(players);
             }
         }
     }
 
-
-
-
-
+    // Function to check for any defeated villages
     void deathCheck(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             if(players.get(i).homeVillage.health <= 0){
@@ -82,8 +74,7 @@ public class GameManager {
         }
     }
 
-
-
+    // Function to check for win condition
     boolean winCheck(ArrayList<Player> players){
         if(players.size() == 1){
             System.out.println("Congrats " + players.get(0).playerName + "!");

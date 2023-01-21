@@ -7,6 +7,7 @@ public class Map {
 
     Scanner sc = new Scanner(System.in);
 
+    // Constructor
     Map(int size){
         rows = size;
         columns = size;
@@ -19,10 +20,12 @@ public class Map {
         }
     }
 
+    // Function to remove village
     void addVillage(int[] coord, String maker){
         grid[coord[0]][coord[1]] = maker;
     }
 
+    // Function to draw map
     void drawMap(){
         System.out.println("     - - - Board Map - - - ");
         System.out.print("/  ");

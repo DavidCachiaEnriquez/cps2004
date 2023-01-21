@@ -6,6 +6,7 @@ public class Troops {
     int cc;
     int speed;
 
+    // Constructor
     Troops(String tName, int tHealth, int tPower, int tCc, int tSpeed){
         name = tName;
         health = tHealth;

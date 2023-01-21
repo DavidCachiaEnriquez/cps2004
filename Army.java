@@ -18,11 +18,12 @@ public class Army {
 
     Scanner sc = new Scanner(System.in);
 
+    // Constructor
     Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc, boolean defending){
         if(defending == false){
             System.out.println("\nCreating army!");
             if(homeTroops.size() != 0){
-                addTroops(homeTroops);
+                typesOfTroops(homeTroops);
                 addStats();
                 marchDistance = dist;
                 currentLocation = homeLoc;
@@ -41,19 +42,21 @@ public class Army {
         }
     }
 
-    void addTroops(ArrayList<Troops> homeTroops){
+    // Function to go through different troops types
+    void typesOfTroops(ArrayList<Troops> homeTroops){
         String name = "Soldier";
-        troopType(homeTroops, name);
+        numOfTroops(homeTroops, name);
         
         name = "Cavalier";
-        troopType(homeTroops, name);
+        numOfTroops(homeTroops, name);
         
         name = "Giant";
-        troopType(homeTroops, name);
+        numOfTroops(homeTroops, name);
     }
 
-    void troopType(ArrayList<Troops> homeTroops, String name){
-        int num = numOfTroops(homeTroops, name);
+    // Function to take number of troop to add
+    void numOfTroops(ArrayList<Troops> homeTroops, String name){
+        int num = troopPoolSize(homeTroops, name);
         if(num != 0){
             System.out.print("Number of " + name + "s (" + num + "): ");
             int numS = sc.nextInt();
@@ -61,7 +64,8 @@ public class Army {
         }
     }
 
-    int numOfTroops(ArrayList<Troops> homeTroops, String name){
+    // Function to get number of troop in village pool
+    int troopPoolSize(ArrayList<Troops> homeTroops, String name){
         int num = 0;
         for(int i = 0; i < homeTroops.size(); i++){
             if(homeTroops.get(i).name == name){
@@ -71,6 +75,7 @@ public class Army {
         return num;
     }
 
+    // Function to transfer troop from pool to army
     void addTroop(ArrayList<Troops> homeTroops, int num, String name){
         for(int i = 0; i < homeTroops.size(); i++){
             Troops troop = homeTroops.get(i);
@@ -84,7 +89,7 @@ public class Army {
         }
     }
 
-
+    // Function to create army stats
     void addStats(){
         if(attackPower != 0){
             attackPower = 0; armyHealth = 0;
@@ -104,11 +109,21 @@ public class Army {
     }
 
 
+    // Function to make army march
+    void armyMarch(ArrayList<Player> players){
+        if(marchSpeed > marchDistance){
+            armiesCombat(players);
+        }else{
+            marchDistance -= marchSpeed;
+        }
+    }
+
+    // Function to control army combat
     void armiesCombat(ArrayList<Player> players){
         Village defendingVillage = villageGetter(targetLocation, players);
 
         if(defendingVillage.homeTroops.size() > 0){
-            Army defenceArmy = defendingArmy(defendingVillage);
+            Army defenceArmy = defendingVillage.defendingArmy();
 
             boolean winCheck = combatResult(defenceArmy);
             if(winCheck == true){
@@ -125,6 +140,7 @@ public class Army {
         System.out.println();
     }
 
+    // Function to get defending village
     Village villageGetter(int[] coord, ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             Village tempVillage = players.get(i).homeVillage;
@@ -135,15 +151,7 @@ public class Army {
         return null;
     }
 
-    Army defendingArmy(Village village){
-        Army tempArmy = new Army(village.homeTroops, 0, village.location, village.location, true);
-        for(int i = 0; i <= village.homeTroops.size(); i++){
-            village.homeTroops.remove(0);
-        }
-        System.out.println(village.homeTroops.size());
-        return tempArmy;
-    }
-
+    // Function to give result of combat
     boolean combatResult(Army defendingArmy){
         int damageCounterA = attackPower;
         int damageCounterB = defendingArmy.attackPower;
@@ -157,6 +165,7 @@ public class Army {
         return(armyMembers.size() == 0 ? true: false);
     }
 
+    // Function to take damage from combat
     void armyCombat(int damage){
         while(damage > 0){
             if(armyMembers.size() > 0){
@@ -173,6 +182,7 @@ public class Army {
         }
     }
 
+    // Function to steal resources
     void stealResources(Village village){
         for(int i = 0; i < resourceCC; i++){
             

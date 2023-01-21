@@ -11,6 +11,7 @@ public class Player {
 
     Scanner sc = new Scanner(System.in);
 
+    // Constructor
     Player(Map map, ArrayList<Player> allPlayers){
         worldMap = map;
         players = allPlayers;
@@ -25,7 +26,7 @@ public class Player {
         System.out.println();
     }
 
-
+    // Main menu
     void demoMenuV2(){
         int menu = 0;
         while(menu != 5 && homeVillage.health != 0){
@@ -55,7 +56,7 @@ public class Player {
         }
     }
 
-
+    // General actions menu
     void generalMenu(){
         System.out.println("General Menu");
         System.out.println(" 1. Village Details");
@@ -77,6 +78,7 @@ public class Player {
         }
     }
 
+    // Building actions menu
     void buildingMenu(){
         System.out.println("Buildings Menu");
         System.out.println(" 1. Build Building");
@@ -100,6 +102,7 @@ public class Player {
         }
     }
 
+    // Troop actions menu
     void troopMenu(){
         System.out.println("Troop Menu");
         System.out.println(" 1. Train Troops");
@@ -120,6 +123,7 @@ public class Player {
         }
     }
 
+    // Combat actions menu
     void combatMenu(){
         System.out.println("Combat Menu");
         System.out.println(" 1. Attack Village");
