@@ -30,28 +30,32 @@ public class Player {
     // Main menu
     void demoMenuV2(){
         int menu = 0;
-        while(menu != 5 && homeVillage.health != 0){
+        while(menu != 5 && menu != 6 && menu != 7 && homeVillage.health != 0){
             System.out.print("\033[H\033[2J");
             System.out.println("Main Menu");
             System.out.println(" 1. General Commands");
             System.out.println(" 2. Buildings Commands");
             System.out.println(" 3. Troop Commands");
             System.out.println(" 4. Combat Commands");
-            System.out.println(" 5. Pass");
+            System.out.println(" 5. Surrender");
+            System.out.println(" 6. Pass");
+            System.out.println(" 7. Exit Game");
 
             System.out.print("\nMenu Selection: ");
-            menu = validator.rangedInput(1, 5);
+            menu = validator.rangedInput(1, 7);
 
-            if(menu == 6){
+            if(menu == 7){
                 System.out.println("\nExiting...");
+                System.exit(0);
             }else{            
                 System.out.print("\033[H\033[2J");  
                 switch(menu){
                     case 1: generalMenu(); break;
                     case 2: buildingMenu(); break;
                     case 3: troopMenu(); break;
-                    case 4: combatMenu(); break;
-                    case 5: homeVillage.pass(); break;
+                    case 4: homeVillage.attackVillage(players, worldMap); sc.next(); break;
+                    case 5: homeVillage.gameSurrender(); break;
+                    case 6: homeVillage.pass(); break;
                 }
             }
         }
@@ -129,21 +133,18 @@ public class Player {
     void combatMenu(){
         System.out.println("Combat Menu");
         System.out.println(" 1. Attack Village");
-        System.out.println(" 2. Surrender");
-        System.out.println(" 3. Exit");
+        System.out.println(" 2. Cancel");
 
         System.out.print("\nMenu Selection: ");
-        int menu = validator.rangedInput(1, 3);
+        int menu = validator.rangedInput(1, 2);
 
         System.out.print("\033[H\033[2J");  
         switch(menu){
             case 1: homeVillage.attackVillage(players, worldMap); break;
-            case 2: homeVillage.gameSurrender(); break;
         }
 
-        if(menu != 2 && menu != 3){
-            System.out.print("\nC to Continue: ");
-            sc.next();
+        if(menu != 2){
+            
         }
     }
 }

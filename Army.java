@@ -133,25 +133,26 @@ public class Army {
     // Function to control army combat
     void armiesCombat(ArrayList<Player> players){
         Village defendingVillage = villageGetter(targetLocation, players);
+        if(defendingVillage != null){
+            if(defendingVillage.homeTroops.size() > 0){
+                Army defenceArmy = defendingVillage.defendingArmy();
 
-        if(defendingVillage.homeTroops.size() > 0){
-            Army defenceArmy = defendingVillage.defendingArmy();
+                boolean winCheck = combatResult(defenceArmy);
+                if(winCheck == true){
+                    defendingVillage.depositArmyMembers(defenceArmy);
+                }else{
+                    defendingVillage.health -= attackPower;
+                    stealResources(defendingVillage);
+                    marchBack();
+                }
 
-            boolean winCheck = combatResult(defenceArmy);
-            if(winCheck == true){
-                defendingVillage.depositArmyMembers(defenceArmy);
             }else{
                 defendingVillage.health -= attackPower;
                 stealResources(defendingVillage);
                 marchBack();
             }
-
-        }else{
-            defendingVillage.health -= attackPower;
-            stealResources(defendingVillage);
-            marchBack();
+            System.out.println();
         }
-        System.out.println();
     }
 
     // Function to get defending village

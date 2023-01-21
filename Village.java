@@ -100,7 +100,8 @@ public class Village {
                 }
 
             }else if(choice == 2){
-                System.out.println("\nChoose type:");
+                System.out.print("\033[H\033[2J");
+                System.out.println("Choose type:");
                 System.out.println(" 1. Lumberyad (Wood)");
                 System.out.println(" 2. Mess Hall (Rations)");
                 System.out.println(" 3. Mines (Gold)");
@@ -230,7 +231,7 @@ public class Village {
                 trainingBuildings.get(i).displayDetails(i);
             }
         }else{
-            System.out.println(" No troop buildings yet...");
+            System.out.println("No troop buildings yet...");
         }
     }
 
@@ -241,7 +242,7 @@ public class Village {
                 resourceBuildings.get(i).displayDetails(i);
             }
         }else{
-            System.out.println("\n No resource buildings yet...");
+            System.out.println("\nNo resource buildings yet...");
         }
     }
 
@@ -249,18 +250,18 @@ public class Village {
 
     void trainTroop(){
         displayTBuilds();
+        if(trainingBuildings.size() != 0){
+            System.out.print("\nMenu selection: ");
+            int choice = validator.rangedInput(1, trainingBuildings.size())-1;
 
-        System.out.print("\nMenu selection: ");
-        int choice = validator.rangedInput(1, trainingBuildings.size())-1;
+            int cost = trainingBuildings.get(choice).troopCost;
 
-        int cost = trainingBuildings.get(choice).troopCost;
-
-        if(cost <= store.rations){
-            trainingBuildings.get(choice).createTroop(store, homeTroops);
-        }else{
-            System.out.println("Not enough rations...");
+            if(cost <= store.rations){
+                trainingBuildings.get(choice).createTroop(store, homeTroops);
+            }else{
+                System.out.println("Not enough rations...");
+            }
         }
-
     }
 
 
@@ -314,6 +315,8 @@ public class Village {
 
         Army newArmy = new Army(homeTroops, dist, location, target.homeVillage.location, false);
         armies.add(newArmy);
+
+        System.out.print("\nC to Continue: ");
     }
 
     ArrayList<Player> listWithoutUser(ArrayList<Player> players){
