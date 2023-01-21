@@ -17,8 +17,8 @@ public class TrainingBuilding {
         level = 1;
         if(type == 1){
             name = "Barracks"; troopName = "Soldier";
-            troopCost = 1; troopHealth = 3; troopPower = 3; 
-            troopCc = 3; troopSpeed = 3;
+            troopCost = 1; troopHealth = 4; troopPower = 4; 
+            troopCc = 4; troopSpeed = 4;
         }else if(type == 2){
             name = "Stables"; troopName = "Cavalier";
             troopCost = 2; troopHealth = 3; troopPower = 1; 

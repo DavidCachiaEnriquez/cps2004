@@ -10,7 +10,7 @@ public class GameManager {
 
     int turnCounter = 1;
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     // Constructor
     GameManager(){
@@ -32,10 +32,12 @@ public class GameManager {
             deathCheck(players);
             winFlag = winCheck(players);
 
-            System.out.print("Turn " + turnCounter);
-            turnCounter++;
-            System.out.print("\nC to go to next turn: ");
-            sc.next();
+            if(winFlag != false){
+                System.out.print("Turn " + turnCounter);
+                turnCounter++;
+                System.out.print("\nC to go to next turn: ");
+                sc.next();
+            }
         }
 
     }

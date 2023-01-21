@@ -9,7 +9,8 @@ public class Player {
     Map worldMap;     
     ArrayList<Player> players;     
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    Validation validator = new Validation();
 
     // Constructor
     Player(Map map, ArrayList<Player> allPlayers){
@@ -20,7 +21,7 @@ public class Player {
         playerName = sc.next();
 
         System.out.print("Enter marker: ");
-        villageMarker = sc.next();
+        villageMarker = validator.villageMarkerInput();
 
         homeVillage = new Village(playerName, villageMarker, map);
         System.out.println();
@@ -127,9 +128,8 @@ public class Player {
     void combatMenu(){
         System.out.println("Combat Menu");
         System.out.println(" 1. Attack Village");
-        System.out.println(" 2. Outgoing Armies");
-        System.out.println(" 3. Surrender");
-        System.out.println(" 4. Exit");
+        System.out.println(" 2. Surrender");
+        System.out.println(" 3. Exit");
 
         System.out.print("\nMenu Selection: ");
         int menu = sc.nextInt();
@@ -137,11 +137,10 @@ public class Player {
         System.out.print("\033[H\033[2J");  
         switch(menu){
             case 1: homeVillage.attackVillage(players, worldMap); break;
-            case 2: homeVillage.displayArmies(); break;
-            case 3: homeVillage.gameSurrender(); break;
+            case 2: homeVillage.gameSurrender(); break;
         }
 
-        if(menu != 3 && menu != 4){
+        if(menu != 2 && menu != 3){
             System.out.print("\nC to Continue: ");
             sc.next();
         }

@@ -1,11 +1,7 @@
-import java.util.Scanner;
-
 public class Map {
     int rows;
     int columns;
     String[][] grid;
-
-    Scanner sc = new Scanner(System.in);
 
     // Constructor
     Map(int size){

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Village {
-    // - - - Attributes - - - //
     String ownerName;
     String villageMarker;
     int health;
@@ -16,13 +15,12 @@ public class Village {
 
     ArrayList<TrainingBuilding> trainingBuildings = new ArrayList<TrainingBuilding>();
     ArrayList<ResourceBuilding> resourceBuildings = new ArrayList<ResourceBuilding>();
-    // - - - Attributes - - - //
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     Village(String name, String marker, Map map){
         ownerName = name;
-        health = 50;
+        health = 20;
         villageMarker = marker;
 
         int[] coord = locationSetter(map.rows, map);
@@ -96,6 +94,7 @@ public class Village {
                         store.wood-=1;
                         trainingBuildings.add(newBuild);
                         System.out.println("Built!");
+                        health += 5;
                     }else{
                         System.out.println("Already Built");
                     }
@@ -127,6 +126,7 @@ public class Village {
                         store.wood-=1;
                         resourceBuildings.add(newBuild);
                         System.out.println("Built!");
+                        health += 5;
                     }else{
                         System.out.println("Already Built");
                     }
@@ -351,13 +351,7 @@ public class Village {
 
         return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
     }
-
-
-
-    void displayArmies(){
-    }
-
-    
+ 
     void pass(){
         updateResources();
         updateArmies();

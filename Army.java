@@ -17,7 +17,7 @@ public class Army {
     int[] currentLocation;
     int[] targetLocation;
 
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
 
     // Constructor
     Army(ArrayList<Troops> homeTroops, double dist, int[] homeLoc, int[] targetLoc, boolean defending){
@@ -227,7 +227,6 @@ public class Army {
                     village.store.gold--;
                 }
             }else{
-                System.out.println("No resources left");
                 break;
             }
         }
