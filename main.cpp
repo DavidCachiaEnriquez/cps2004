@@ -19,7 +19,7 @@ gameManager::gameManager(){
                     checker = mineSetter();
                     if(checker == true){
                         grid[i][j].mine = true;
-                        grid[i][j].mine = "XX";
+                        grid[i][j].marker = "XX";
                         currMines++;
                     }
                 }
@@ -37,8 +37,8 @@ gameManager::gameManager(){
 }
 
 bool gameManager::mineSetter(){
-    int randNum = rand() % 2;
-    if(randNum>0) return true; 
+    int randNum = rand() % 11;
+    if(randNum>9) return true; 
     else return false;
 }
 
@@ -98,10 +98,133 @@ void gameManager::displayGrid(){
 
 }
 
-void gameManager::updateGrid(){
+void gameManager::updateGrid(int row, int column){
+    if(grid[row][column].mine == true){
+        grid[row][column].marker = "XX";
+
+        displayGrid();
+        cout << "\nYou lose";
+        exit(0);
+    } 
+    if(grid[row][column].mineNum != 0){
+        grid[row][column].marker = ("0" + to_string(grid[row][column].mineNum));
+        grid[row][column].visibility = true;
+    }else{
+        grid[row][column].marker = "0" + to_string(grid[row][column].mineNum); //Centre
+        grid[row][column].visibility = true;
+
+        if(row == 0 && column == 0){
+            // Top Left    
+            grid[row+1][column].marker = "0" + to_string(grid[row+1][column].mineNum); //Down
+            grid[row+1][column].visibility = true;
+            grid[row][column+1].marker = "0" + to_string(grid[row][column+1].mineNum); //Right
+            grid[row][column+1].visibility = true;
+            grid[row+1][column+1].marker = "0" + to_string(grid[row+1][column+1].mineNum); //Down, Right
+            grid[row+1][column+1].visibility = true;
+
+        }else if(row == 0 && column == size-1){
+            // Top Right 
+            grid[row+1][column].marker = "0" + to_string(grid[row+1][column].mineNum); //Down
+            grid[row+1][column].visibility = true;
+            grid[row][column-1].marker = "0" + to_string(grid[row][column-1].mineNum); //Left
+            grid[row][column-1].visibility = true;
+            grid[row+1][column-1].marker = "0" + to_string(grid[row+1][column-1].mineNum); //Down, Left
+            grid[row+1][column-1].visibility = true;
+
+        }else if(row == size-1 && column == 0){
+            // Bot Left
+            grid[row-1][column].marker = "0" + to_string(grid[row-1][column].mineNum); //Up
+            grid[row-1][column].visibility = true;
+            grid[row][column+1].marker = "0" + to_string(grid[row][column+1].mineNum); //Right
+            grid[row][column+1].visibility = true;
+            grid[row-1][column+1].marker = "0" + to_string(grid[row-1][column+1].mineNum); //Up, Right
+            grid[row-1][column+1].visibility = true;
+
+        }else if(row == size-1 && column == size-1){
+            // Bot Right
+            grid[row-1][column].marker = "0" + to_string(grid[row-1][column].mineNum); //Up
+            grid[row-1][column].visibility = true;
+            grid[row][column-1].marker = "0" + to_string(grid[row][column-1].mineNum); //Left
+            grid[row][column-1].visibility = true;
+            grid[row-1][column-1].marker = "0" + to_string(grid[row-1][column-1].mineNum); //Up, Left
+            grid[row-1][column-1].visibility = true;
+
+        }else if(row == 0){
+            // Top
+            grid[row+1][column].marker = "0" + to_string(grid[row+1][column].mineNum); //Down
+            grid[row+1][column].visibility = true;
+            grid[row][column+1].marker = "0" + to_string(grid[row][column+1].mineNum); //Right
+            grid[row][column+1].visibility = true;
+            grid[row+1][column+1].marker = "0" + to_string(grid[row+1][column+1].mineNum); //Down, Right
+            grid[row+1][column+1].visibility = true;
+            grid[row][column-1].marker = "0" + to_string(grid[row][column-1].mineNum); //Left
+            grid[row][column-1].visibility = true;
+            grid[row+1][column-1].marker = "0" + to_string(grid[row+1][column-1].mineNum); //Down, Left
+            grid[row+1][column-1].visibility = true;
+
+        }else if(row == size-1){
+            // Bot
+            grid[row-1][column].marker = "0" + to_string(grid[row-1][column].mineNum); //Up
+            grid[row-1][column].visibility = true;
+            grid[row][column+1].marker = "0" + to_string(grid[row][column+1].mineNum); //Right
+            grid[row][column+1].visibility = true;
+            grid[row-1][column+1].marker = "0" + to_string(grid[row-1][column+1].mineNum); //Up, Right
+            grid[row-1][column+1].visibility = true;
+            grid[row][column-1].marker = "0" + to_string(grid[row][column-1].mineNum); //Left
+            grid[row][column-1].visibility = true;
+            grid[row-1][column-1].marker = "0" + to_string(grid[row-1][column-1].mineNum); //Up, Left
+            grid[row-1][column-1].visibility = true;
+
+        }else if(column == 0){
+            // Left
+            grid[row-1][column].marker = "0" + to_string(grid[row-1][column].mineNum); //Up
+            grid[row-1][column].visibility = true;
+            grid[row+1][column].marker = "0" + to_string(grid[row+1][column].mineNum); //Down
+            grid[row+1][column].visibility = true;
+            grid[row][column+1].marker = "0" + to_string(grid[row][column+1].mineNum); //Right
+            grid[row][column+1].visibility = true;
+            grid[row-1][column+1].marker = "0" + to_string(grid[row-1][column+1].mineNum); //Up, Right
+            grid[row-1][column+1].visibility = true;
+            grid[row+1][column+1].marker = "0" + to_string(grid[row+1][column+1].mineNum); //Down, Right
+            grid[row+1][column+1].visibility = true;
+
+        }else if(column == size-1){
+            // Right
+            grid[row-1][column].marker = "0" + to_string(grid[row-1][column].mineNum); //Up
+            grid[row-1][column].visibility = true;
+            grid[row+1][column].marker = "0" + to_string(grid[row+1][column].mineNum); //Down
+            grid[row+1][column].visibility = true;
+            grid[row][column-1].marker = "0" + to_string(grid[row][column-1].mineNum); //Left
+            grid[row][column-1].visibility = true;
+            grid[row-1][column-1].marker = "0" + to_string(grid[row-1][column-1].mineNum); //Up, Left
+            grid[row-1][column-1].visibility = true;
+            grid[row+1][column-1].marker = "0" + to_string(grid[row+1][column-1].mineNum); //Down, Left
+            grid[row+1][column-1].visibility = true;
+
+        }else{ 
+            // Centre
+            grid[row-1][column].marker = "0" + to_string(grid[row-1][column].mineNum); //Up
+            grid[row-1][column].visibility = true;
+            grid[row+1][column].marker = "0" + to_string(grid[row+1][column].mineNum); //Down
+            grid[row+1][column].visibility = true;
+            grid[row][column+1].marker = "0" + to_string(grid[row][column+1].mineNum); //Right
+            grid[row][column+1].visibility = true;
+            grid[row-1][column+1].marker = "0" + to_string(grid[row-1][column+1].mineNum); //Up, Right
+            grid[row-1][column+1].visibility = true;
+            grid[row+1][column+1].marker = "0" + to_string(grid[row+1][column+1].mineNum); //Down, Right
+            grid[row+1][column+1].visibility = true;
+            grid[row][column-1].marker = "0" + to_string(grid[row][column-1].mineNum); //Left
+            grid[row][column-1].visibility = true;
+            grid[row-1][column-1].marker = "0" + to_string(grid[row+1][column-1].mineNum); //Up, Left
+            grid[row-1][column-1].visibility = true;
+            grid[row+1][column-1].marker = "0" + to_string(grid[row-1][column-1].mineNum); //Down, Left
+            grid[row+1][column-1].visibility = true;
+        }
+    }
 }
 
 void gameManager::winCheck(){
+    
 }
 
 
@@ -125,12 +248,14 @@ int main(){
     do{
         mineSweeper.displayGrid();
 
-        // cout << "Row number: ";
-        // int row = validator.validator(mineSweeper.size-1);
+        cout << "\nColumn number: ";
+        int column = validator.validator(mineSweeper.size-1);
 
-        // cout << "\nColumn number: ";
-        // int column = validator.validator(mineSweeper.size-1);
+        cout << "Row number: ";
+        int row = validator.validator(mineSweeper.size-1);
 
+        mineSweeper.updateGrid(row, column);
+        mineSweeper.winCheck();
         cout << "\n\n";
     }while(true);
 }

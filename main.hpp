@@ -20,7 +20,7 @@ class gameManager{
         bool mineSetter();
         void numSetter(int row, int column);
         void displayGrid();
-        void updateGrid();
+        void updateGrid(int row, int column);
         void winCheck();
 };
 
