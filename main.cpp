@@ -77,6 +77,25 @@ void gameManager::numSetter(int row, int column){
 }
 
 void gameManager::displayGrid(){
+        
+    cout << "\\\\ ";
+    for(int i = 0; i < size; i++){
+        if(i <= 9) cout << "0";
+        cout << i; cout << " ";
+    }
+    cout << "\n";
+
+    for(int i = 0;i<size;i++){
+        if(i <= 9) cout << "0";
+        cout << i; cout << " ";
+
+        for(int j = 0;j<size;j++){
+            cout << grid[i][j].marker;
+            cout << " ";
+        }
+        cout << "\n";
+    }
+
 }
 
 void gameManager::updateGrid(){
@@ -101,14 +120,16 @@ int validation::validator(int max){
 
 
 int main(){
-    gameManager GM;
+    gameManager mineSweeper;
     validation validator;
     do{
-        cout << "Row number: ";
-        int row = validator.validator(GM.size-1);
+        mineSweeper.displayGrid();
 
-        cout << "\nColumn number: ";
-        int column = validator.validator(GM.size-1);
+        // cout << "Row number: ";
+        // int row = validator.validator(mineSweeper.size-1);
+
+        // cout << "\nColumn number: ";
+        // int column = validator.validator(mineSweeper.size-1);
 
         cout << "\n\n";
     }while(true);
