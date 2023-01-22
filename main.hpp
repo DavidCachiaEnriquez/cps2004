@@ -26,6 +26,6 @@ class gameManager{
 
 class validation{
     public:
-        int validator();
+        int validator(int max);
 };
 
