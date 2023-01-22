@@ -36,11 +36,13 @@ gameManager::gameManager(){
         }
 }
 
+
 bool gameManager::mineSetter(){
     int randNum = rand() % 11;
     if(randNum>9) return true; 
     else return false;
 }
+
 
 void gameManager::numSetter(int row, int column){
     if(row != 0 && grid[row-1][column].mine == false){ //Above
@@ -76,6 +78,7 @@ void gameManager::numSetter(int row, int column){
     }
 }
 
+
 void gameManager::displayGrid(){
         
     cout << "\\\\ ";
@@ -97,6 +100,7 @@ void gameManager::displayGrid(){
     }
 
 }
+
 
 void gameManager::updateGrid(int row, int column){
     if(grid[row][column].mine == true){
@@ -223,8 +227,21 @@ void gameManager::updateGrid(int row, int column){
     }
 }
 
+
 void gameManager::winCheck(){
-    
+    bool flag = true;
+    for(int i = 0;i<size; i++){
+        for(int j = 0;j<size; j++){
+            if(grid[i][j].visibility == false){
+                if(grid[i][j].mine == false) flag = false;
+            }
+        }
+    }
+
+    if(flag == true){
+        cout << "Congrats, you win!";
+        exit(0);
+    }
 }
 
 
