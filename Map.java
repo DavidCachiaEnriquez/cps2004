@@ -17,8 +17,8 @@ public class Map {
     }
 
     // Function to add village marker
-    void addVillage(int[] coord, String maker){
-        grid[coord[0]][coord[1]] = maker;
+    void addVillage(int[] coord, String marker){
+        grid[coord[0]][coord[1]] = marker;
     }
 
     // Function to remove village marker 
