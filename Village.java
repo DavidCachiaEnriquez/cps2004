@@ -29,7 +29,7 @@ public class Village {
     }
 
     // Function to get random location for village
-    int[] locationSetter(int size, Map map){
+    private int[] locationSetter(int size, Map map){
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
 
@@ -140,7 +140,7 @@ public class Village {
     }    
 
     // Function to check if training building exists already
-    boolean existCheckerT(ArrayList<TrainingBuilding> building, String name){
+    private boolean existCheckerT(ArrayList<TrainingBuilding> building, String name){
         for(int i = 0; i < building.size(); i++){
             if(building.get(i).troopName == name){
                 return(true);
@@ -150,7 +150,7 @@ public class Village {
     }
 
     // Function to check if resource building exists already
-    boolean existCheckerR(ArrayList<ResourceBuilding> building, String name){
+    private boolean existCheckerR(ArrayList<ResourceBuilding> building, String name){
         for(int i = 0; i < building.size(); i++){
             if(building.get(i).name == name){
                 return(true);
@@ -185,7 +185,7 @@ public class Village {
     }
 
     // Function to upgrade training buildings
-    void upgradeTroops(){
+    private void upgradeTroops(){
         if(trainingBuildings.size() > 0){
             for(int i = 0; i<trainingBuildings.size();i++){
                 System.out.print(" " + (i+1) + ". "  + trainingBuildings.get(i).name);
@@ -203,7 +203,7 @@ public class Village {
     }
 
     // Function to upgrade resource buildings
-    void upgradeResources(){
+    private void upgradeResources(){
         if(resourceBuildings.size() > 0){
             for(int i = 0; i<resourceBuildings.size();i++){
                 System.out.print(" " + (i+1) + ". "  + resourceBuildings.get(i).name);
@@ -227,7 +227,7 @@ public class Village {
     }
 
     // Function to display details of training buildings
-    void displayTBuilds(){
+    private void displayTBuilds(){
         if(trainingBuildings.size() != 0){
             System.out.println("Troop Buildings: ");
             for(int i = 0; i<trainingBuildings.size();i++){
@@ -239,7 +239,7 @@ public class Village {
     }
 
     // Function to display details of resource buildings
-    void displayRBuilds(){
+    private void displayRBuilds(){
         if(resourceBuildings.size() != 0){
             System.out.println("\nResources Buildings");
             for(int i = 0; i<resourceBuildings.size();i++){
@@ -277,7 +277,7 @@ public class Village {
     }
 
     // Function to count number of specific troops
-    int[] countNumberOfTroops(ArrayList<Troops> villageTroops){
+    private int[] countNumberOfTroops(ArrayList<Troops> villageTroops){
         int[] troopArray = new int[3];
 
         for(int i = 0; i < villageTroops.size(); i++){
@@ -314,7 +314,7 @@ public class Village {
     }
 
     // Function to give list of players, excluding the current player
-    ArrayList<Player> listWithoutUser(ArrayList<Player> players){
+    private ArrayList<Player> listWithoutUser(ArrayList<Player> players){
         ArrayList<Player> tempList = new ArrayList<Player>();
         for(int i = 0; i < players.size(); i++){
             if(players.get(i).playerName != ownerName){
@@ -325,7 +325,7 @@ public class Village {
     }
 
     // Function to return target for attack
-    Player chooseTarget(ArrayList<Player> choices){
+    private Player chooseTarget(ArrayList<Player> choices){
         System.out.println("\nChoose Target");
         for(int i  = 0; i <choices.size(); i++){
             System.out.println(" " + (i+1) + ". " + choices.get(i).playerName);
@@ -338,14 +338,14 @@ public class Village {
     }
 
     // Function to print reduced village details
-    void reducedVillageDetails(){
+    private void reducedVillageDetails(){
         System.out.println("\nVillage owner:    " + ownerName);
         System.out.println("Village symbol:   " + villageMarker);
         System.out.println("Location:         (" + location[1] + ", " + location[0] + ")");
     }
 
     // Function to calculate the total distance to travel
-    double totalDistance(int[] tLocation){
+    private double totalDistance(int[] tLocation){
         int x1 = location[1]; int y1 = location[0];
         int x2 = tLocation[1]; int y2 = tLocation[0];
 
@@ -363,7 +363,7 @@ public class Village {
     }
 
     // Function to update villages resources
-    void updateResources(){
+    private void updateResources(){
         for(int i = 0; i < resourceBuildings.size(); i++){
             ResourceBuilding building = resourceBuildings.get(i);
             int[] newResources = building.generateResources();

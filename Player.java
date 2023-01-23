@@ -62,7 +62,7 @@ public class Player {
     }
 
     // General actions menu
-    void generalMenu(){
+    private void generalMenu(){
         System.out.println("General Menu");
         System.out.println(" 1. Village Details");
         System.out.println(" 2. Display Map");
@@ -84,7 +84,7 @@ public class Player {
     }
 
     // Building actions menu
-    void buildingMenu(){
+    private void buildingMenu(){
         System.out.println("Buildings Menu");
         System.out.println(" 1. Build Building");
         System.out.println(" 2. Upgrade Building");
@@ -108,7 +108,7 @@ public class Player {
     }
 
     // Troop actions menu
-    void troopMenu(){
+    private void troopMenu(){
         System.out.println("Troop Menu");
         System.out.println(" 1. Train Troops");
         System.out.println(" 2. Troop Details");

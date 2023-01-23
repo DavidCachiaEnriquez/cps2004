@@ -44,7 +44,7 @@ public class Army {
     }
 
     // Function to go through different troops types 
-    void typesOfTroops(ArrayList<Troops> homeTroops){
+    private void typesOfTroops(ArrayList<Troops> homeTroops){
         String name = "Soldier";
         numOfTroops(homeTroops, name);
         
@@ -56,7 +56,7 @@ public class Army {
     }
 
     // Function to take number of troop to add 
-    void numOfTroops(ArrayList<Troops> homeTroops, String name){
+    private void numOfTroops(ArrayList<Troops> homeTroops, String name){
         int num = troopPoolSize(homeTroops, name);
         if(num != 0){
             System.out.print("Number of " + name + "s (" + num + "): ");
@@ -71,7 +71,7 @@ public class Army {
     }
 
     // Function to get number of troop in village pool
-    int troopPoolSize(ArrayList<Troops> homeTroops, String name){
+    private int troopPoolSize(ArrayList<Troops> homeTroops, String name){
         int num = 0;
         for(int i = 0; i < homeTroops.size(); i++){
             if(homeTroops.get(i).name == name){
@@ -82,7 +82,7 @@ public class Army {
     }
     
     // Function to transfer troop from pool to army
-    void addTroop(ArrayList<Troops> homeTroops, int num, String name){
+    private void addTroop(ArrayList<Troops> homeTroops, int num, String name){
         for(int i = 0; i < homeTroops.size(); i++){
             Troops troop = homeTroops.get(i);
             while(num != 0){
@@ -96,7 +96,7 @@ public class Army {
     }
 
     // Function to create army stats
-    void addStats(){
+    private void addStats(){
         if(attackPower != 0){
             resourceCC = 0; marchSpeed = 0;
         }
@@ -133,7 +133,7 @@ public class Army {
     }
 
     // Function to control army combat
-    void armiesCombat(ArrayList<Player> players){
+    private void armiesCombat(ArrayList<Player> players){
         Village defendingVillage = villageGetter(targetLocation, players);
         if(defendingVillage != null){
             if(defendingVillage.homeTroops.size() > 0){
@@ -157,7 +157,7 @@ public class Army {
     }
 
     // Function to get defending village
-    Village villageGetter(int[] coord, ArrayList<Player> players){
+    private Village villageGetter(int[] coord, ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             Village tempVillage = players.get(i).homeVillage;
             if(tempVillage.location == coord){
@@ -168,7 +168,7 @@ public class Army {
     }
 
     // Function to give result of combat
-    boolean combatResult(Army defendingArmy){
+    private boolean combatResult(Army defendingArmy){
         int damageCounterA = attackPower;
         int damageCounterB = defendingArmy.attackPower;
 
@@ -182,7 +182,7 @@ public class Army {
     }
 
     // Function to take damage from combat
-    void armyCombat(int damage){
+    private void armyCombat(int damage){
         while(damage > 0){
             if(armyMembers.size() > 0){
                 if(armyMembers.get(0).health <= damage){
@@ -199,7 +199,7 @@ public class Army {
     }
 
     // Function to steal resources
-    void stealResources(Village village){
+    private void stealResources(Village village){
         for(int i = 0; i < resourceCC; i++){
             
             ArrayList<Integer> validResources = new ArrayList<Integer>();
@@ -234,14 +234,14 @@ public class Army {
     }
 
     // Function to change target and march back to home
-    void marchBack(){
+    private void marchBack(){
         int[] temp = currentLocation;
         currentLocation = targetLocation;
         targetLocation = temp;
     }
 
     // Function to control what happens when army gets home
-    void returnHome(ArrayList<Player> players){
+    private void returnHome(ArrayList<Player> players){
         Village homeVillage = null;
         for(int i = 0; i <players.size(); i++){
             if(players.get(i).homeVillage.location == homeLocation){
@@ -253,7 +253,7 @@ public class Army {
     }
 
     // Function to deposit resources at village store
-    void depositResources(Village homeVillage){
+    private void depositResources(Village homeVillage){
         homeVillage.store.wood += resourceStore[0];
         homeVillage.store.rations += resourceStore[1];
         homeVillage.store.gold += resourceStore[2];
@@ -264,7 +264,7 @@ public class Army {
     }
 
     // Function to add army members back to village troop pool
-    void dissolveArmy(Village homeVillage){
+    private void dissolveArmy(Village homeVillage){
         for(int i = 0; i < armyMembers.size(); i++){
             homeVillage.homeTroops.add(armyMembers.get(0));
             armyMembers.remove(0);

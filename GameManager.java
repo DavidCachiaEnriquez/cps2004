@@ -44,14 +44,14 @@ public class GameManager {
     }
 
     // Function to control turn actions
-    void turnController(ArrayList<Player> players){
+    private void turnController(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             players.get(i).demoMenuV2();
         }       
     }
 
     // Functions to manage armies actions
-    void armiesActions(ArrayList<Player> players){
+    private void armiesActions(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             ArrayList<Army> armies = players.get(i).homeVillage.armies;
 
@@ -64,7 +64,7 @@ public class GameManager {
     }
 
     // Function to check for any defeated villages
-    void deathCheck(ArrayList<Player> players){
+    private void deathCheck(ArrayList<Player> players){
         for(int i = 0; i < players.size(); i++){
             if(players.get(i).homeVillage.health <= 0){
                 map.removeVillageFromMap(players.get(i).villageMarker);
@@ -74,7 +74,7 @@ public class GameManager {
     }
 
     // Function to check for win condition
-    boolean winCheck(ArrayList<Player> players){
+    private boolean winCheck(ArrayList<Player> players){
         if(players.size() == 1){
             System.out.println("Congrats " + players.get(0).playerName + "!");
             return(false);

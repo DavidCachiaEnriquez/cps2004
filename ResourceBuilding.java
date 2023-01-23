@@ -25,17 +25,17 @@ public class ResourceBuilding {
     }
 
     // Function to give amount of wood to add
-    int generateWood(){
+    private int generateWood(){
         return(resourceType.wood * level);
     }
 
     // Function to give amount of rations to add
-    int generateRations(){
+    private int generateRations(){
         return(resourceType.rations * level);
     }
     
     // Function to give amount of gold to add
-    int generateGold(){
+    private int generateGold(){
         return(resourceType.gold * level);
     }
 

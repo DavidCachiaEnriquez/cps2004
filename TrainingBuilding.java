@@ -42,7 +42,7 @@ public class TrainingBuilding {
     }
 
     // Functiont to train a new troop
-    void createTroop(Resources store, ArrayList<Troops> homeTroops){
+    private void createTroop(Resources store, ArrayList<Troops> homeTroops){
         store.rations -= troopCost;
         for(int i = 0; i < level; i++){
             Troops newTroop = new Troops(troopName, troopHealth, troopPower, troopCc, troopSpeed);
@@ -66,8 +66,4 @@ public class TrainingBuilding {
     void displayDetails(int i){
         System.out.print(" " + (i+1) + ". " + name + " - lvl." + level);
     }
-
-    
-
-
 }
