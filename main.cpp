@@ -19,7 +19,7 @@ gameManager::gameManager(){
                     checker = mineSetter();
                     if(checker == true){
                         grid[i][j].mine = true;
-                        grid[i][j].marker = "XX";
+                        grid[i][j].marker = "--";
                         currMines++;
                     }
                 }
