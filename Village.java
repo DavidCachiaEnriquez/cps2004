@@ -190,7 +190,7 @@ public class Village {
             for(int i = 0; i<trainingBuildings.size();i++){
                 System.out.print(" " + (i+1) + ". "  + trainingBuildings.get(i).name);
                 System.out.print(" - lvl." + trainingBuildings.get(i).level);
-                System.out.println(" - cost in gold: " + trainingBuildings.get(i).level);
+                System.out.println(" - cost in gold: " + trainingBuildings.get(i).level + "\n");
             }
             System.out.print("\nChoose building to upgrade: ");
             int building = validator.rangedInput(1, trainingBuildings.size());
@@ -214,7 +214,7 @@ public class Village {
             int building = validator.rangedInput(1, trainingBuildings.size());
 
             ResourceBuilding upgradeBuilding = resourceBuildings.get(building-1);
-            upgradeBuilding.upgradeTrainingBuilding(store);
+            upgradeBuilding.upgradeResourceBuilding(store);
         }else{
             System.out.println(" No resource buildings yet...");
         }

@@ -46,7 +46,7 @@ public class ResourceBuilding {
     }
 
     // Function to upgrade building
-    void upgradeTrainingBuilding(Resources store){
+    void upgradeResourceBuilding(Resources store){
         int upgradeCost = level;
         if(store.gold >= upgradeCost){
             store.gold -= upgradeCost;
